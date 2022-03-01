@@ -4,6 +4,6 @@
 *.sln linguist-language=csharp
 
 # And ignore those repositories considering them as documentation
-src/*/wwwroot/* linguist-documentation
+*/src/*/wwwroot/* linguist-documentation
 wwwroot/** linguist-documentation
 */bin/* linguist-documentation
