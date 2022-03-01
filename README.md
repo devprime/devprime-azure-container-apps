@@ -101,9 +101,11 @@ In our example when creating the services in Container Apps we are using the opt
 The urls below are examples of the accesses available. Get yours.
 
 - https://appdevprimeorder.calmbush-62be1470.canadacentral.azurecontainerapps.io
+
 ![Microservices Order](/public-images/azure-aca-04.png)
 
 - https://appdevprimepayment.calmbush-62be1470.canadacentral.azurecontainerapps.io
+
 ![Microservices Payment](/public-images/azure-aca-05.png)
 
 When making a post in the Order API, it will process the business rule, persistence in mongodb (Azure CosmosDB) and then it will emit an event through Kafka (Azure EventHub).
