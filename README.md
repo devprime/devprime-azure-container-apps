@@ -35,6 +35,7 @@ b) Check the home folder with the Order and Payment items. Each such folder has 
 c) Enter the 'order' folder and add your Devprime license. After executing the command it will change
 the file 'order\src\App\appsettings.json'
 `dp license`
+
 d) Enter the 'payment' folder and add your Devprime license. After running it will change
 the file 'order\src\App\appsettings.json'
 `dp license`
@@ -55,13 +56,14 @@ Enter the order or payment folder and run
 Enter the 'order' folder and run the DevPrime CLI export command to create a deployment file. Repeat the same procedure on the 'payment' folder. We will copy some parameters.
 `dp export kubernetes`
 
-Agora retorne a pasta raiz e abra os arquivos para observar os parâmetros que serão enviados
-durante do deployment do Azure Container Apps. Visualize a chave 'env:' nos arquivos abaixo.
+Now return to the root folder and open the files to observe the parameters that will be sent
+during deployment of Azure Container Apps. View the 'env:' key in the files below.
 `code order\.devprime\kubernetes\deployment.yml`
 `code payment\.devprime\kubernetes\deployment.yml`
 
 **[Environment variables**
 Ao executar os microsserviços Order e Payment na instância do Azure Container Apps é necessário configurar as variáveis de ambiente. Esse procedimento é muito parecido com o utilizado no Docker e Kubernetes e você poderá ter uma visualização na imagem abaixo.
+
 ![Environment variables](/public-images/azure-aca-03.png)
 
 **Definindo as variáveis de ambiente**
