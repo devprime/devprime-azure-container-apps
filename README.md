@@ -9,7 +9,7 @@ The image below demonstrates how the final environment will look after we start 
 
 ![Azure Services](/public-images/azure-aca-01.png)
 
-**Itens necessários em seu ambiente**
+**Items needed in your environment**
 - Install .NET SDK 6 or higher
 - Visual Studio Code
 - An active account on [Microsoft Azure](https://azure.com)
@@ -27,31 +27,31 @@ This project uses powershell and bicep based scripts to create the Azure Contain
 
 **Primeiros passos**
 
-a) Execute um clone do projeto no github
+a) Run a clone of the project on github
 `git clone https://github.com/devprime-io/azure-container-apps-bicep`
-b) Verifique a pasta inicial com os itens Order e Payment. Cada pasta dessa tem um microsserviço desenvolvimento com a plataforma DevPrime.
-![Pasta clonada localmente](/public-images/azure-aca-02.png)
-c)Entre na pasta 'order' e adicione a sua licença Devprime. Após executar o comando ele vai alterar 
-o arquivo 'order\src\App\appsettings.json'
+b) Check the home folder with the Order and Payment items. Each such folder has a development microservice with the DevPrime platform.
+![Folder cloned locally](/public-images/azure-aca-02.png)
+c) Enter the 'order' folder and add your Devprime license. After executing the command it will change
+the file 'order\src\App\appsettings.json'
 `dp license`
-d)Entre na pasta 'payment' e adicione a sua licença Devprime. Após executar ele vai alterar 
-o arquivo 'order\src\App\appsettings.json'
+d) Enter the 'payment' folder and add your Devprime license. After running it will change
+the file 'order\src\App\appsettings.json'
 `dp license`
 
-**Credenciais locais do banco de dados e stream**
-Para executar o microsserviço locamente adicionando as credenciais de um banco de dados mongodb e um cluster kafka no projeto order e no projeto payment editando o arquivo 'appsettings.json' conforme exemplo abaixo. No momento do deployment nós utilizaremos as credenciais do ambiente Azure.
+**Local database and stream credentials**
+To run the microservice locally, adding the credentials of a mongodb database and a kafka cluster in the order project and in the payment project, editing the 'appsettings.json' file as shown in the example below. At deployment time we will use the credentials of the Azure environment.
 
-Opcionalmente localize as chaves 'State' e 'Stream' e altere os valores com credenciais de serviços mongodb e/ou kafka nas pastas 'order' e 'payment'
+Optionally locate the 'State' and 'Stream' keys and change the values with mongodb and/or kafka service credentials in the 'order' and 'payment' folders
 
 `code order\src\App\appsettings.json`
 `code payment\src\App\appsettings.json`
 
-**Executando o microsserviço localmente**
-Entre na pasta order ou payment e execute
- `.\run.ps1 ou ./run.sh (Linux, macOS)`
+**Running the microservice locally**
+Enter the order or payment folder and run
+ `.\run.ps1 or ./run.sh (Linux, macOS)`
 
-**Exportando configurações dos microservices**
-Entre na pasta 'order' e execute o comando export do DevPrime CLI para criação de um arquivo de deployment. Repita o mesmo procedimento na pasta  e 'payment'. Nós cópiaremos alguns parâmetros. 
+**Exporting microservices settings**
+Enter the 'order' folder and run the DevPrime CLI export command to create a deployment file. Repeat the same procedure on the 'payment' folder. We will copy some parameters.
 `dp export kubernetes`
 
 Agora retorne a pasta raiz e abra os arquivos para observar os parâmetros que serão enviados
