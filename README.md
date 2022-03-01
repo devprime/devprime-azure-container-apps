@@ -69,6 +69,7 @@ When running the Order and Payment microservices on the Azure Container Apps ins
 ![Environment variables](/public-images/azure-aca-03.png)
 
 **Setting the environment variables**
+
 a) Edit the files 1-docker-build-push.ps1, 2-deploy-azure.ps1 and 3-cleanup.ps1 by setting a new value in the $app variable. Do not use special characters.
 
 b) Edit the deploy\main.bicep file to change the environment variable settings.
@@ -81,40 +82,43 @@ c) Copy the contents of the key 'devprime_app' in the file 'order\.devprime\kube
 ```
 In this example we will not change other settings. If you need to define more parameters for your application, repeat the procedure for the other keys.
 
-**Executando a criação do ambiente no Azure Container Apps**
-Nós executaremos os scripts para que possa acompanhar passo a passo. Ao final se tudo correr bem você já terá nos logs a url do Azure Container Apps e consultará os serviços no portal do Azure.
+**Running environment creation in Azure Container Apps**
+We'll run the scripts so you can follow along step by step. At the end, if everything goes well, you will already have the Azure Container Apps url in the logs and you will consult the services in the Azure portal.
 
-a) Inicieremos com a criação dos serviços Azure Resource Group, Azure Container Registry (ACR), Docker Build e Push das imagens dos microsserviços para o repostório privado no ACR.
+a) We will start by creating the Azure Resource Group, Azure Container Registry (ACR), Docker Build and Push services from the microservices images to the private repository in ACR.
+
 `.\1-docker-build-push.ps1`
 
-b) Agora utillizaremos o bicep para criar Azure Container Apps, Azure Container App Environment, Azure CosmosDB, Log Analytics, Event Hubs.
+b) Now we will use the bicep to create Azure Container Apps, Azure Container App Environment, Azure CosmosDB, Log Analytics, Event Hubs.
+
 `.\2-deploy-azure.ps1`
 
-**Acessando os microsservices no Azure Container Apps**
-Em nosso exemplo ao criar os serviços no Container Apps nós estamos utilizando a opção de receber requests (ingress) por meio de um endpoint público. 
+**Accessing microservices in Azure Container Apps**
 
-As urls abaixo são exemplos dos acessos disponibilizados. Obtenha os seus.
+In our example when creating the services in Container Apps we are using the option to receive requests (ingress) through a public endpoint.
+
+The urls below are examples of the accesses available. Get yours.
 - https://appdevprimeorder.calmbush-62be1470.canadacentral.azurecontainerapps.io
 ![Microservices Order](/public-images/azure-aca-04.png)
 
 - https://appdevprimepayment.calmbush-62be1470.canadacentral.azurecontainerapps.io
 ![Microservices Payment](/public-images/azure-aca-05.png)
 
-Ao fazer um post na API do Order ele vai processar a regra de negócio, persistência no mongodb (Azure CosmosDB) e depois emitirá um evento pelo Kafka (Azure EventHub).
+When making a post in the Order API, it will process the business rule, persistence in mongodb (Azure CosmosDB) and then it will emit an event through Kafka (Azure EventHub).
 
-O segundo microsserviços regiará ao evento e efetuará o seu ciclo natural de processamento conforme a regra de negócio implementada.
+The second microservices will respond to the event and perform its natural processing cycle according to the implemented business rule.
 
-**Excluindo todo o ambiente criado**
-Para excluir todos os serviços criados no Azure execute o script abaixo. Antes de confirmar certifique-se sobre o nome do Resource Group criado nessa demonstração
+**Excluding all created environment**
+To delete all services created in Azure run the script below. Before confirming make sure about the name of the Resource Group created in this demo
 `.\3-cleanup.ps1`
 
 
-**Sugestão para próximos passos**
-- Automatize esse processo utilizando Azure DevOps, Github...
-- Adicione uma configuração de segurança na exposição das API's
-- Adicione um serviço do Azure API Management
+**Suggestion for next steps**
+- Automate this process using Azure DevOps, Github...
+- Add a security setting in the API's exposure
+- Add an Azure API Management service
 
-**Para saber mais:**
+**Additional Research**
 [Azure Container Apps documentation](https://docs.microsoft.com/en-us/azure/container-apps/)
 [How to deploy Azure Container Apps with Bicep](https://www.thorsten-hans.com/how-to-deploy-azure-container-apps-with-bicep/)
 [Deploy to Azure Container App from using a CI/CD Azure DevOps](https://thomasthornton.cloud/2022/02/11/deploy-to-azure-container-app-from-azure-container-registry-using-a-ci-cd-azure-devops-pipeline-and-azure-cli%EF%BF%BC/)
