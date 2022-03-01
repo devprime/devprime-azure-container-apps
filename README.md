@@ -3,4 +3,114 @@
 
 Azure Container Apps offers a serverless approach to publishing microservices without the need to use Kubernetes. In this tutorial, we demonstrate publishing two microservices developed using the [DevPrime platform](https://devprime.io).
 
-![Azure Services](../public-images/azure-aca-01.png)
+A implementação desse ambiente envolvendo dois microsserviços [DevPrime](https://devprime.io) e do Azure Container Apps utilizará adicionalmente os serviços Azure Container Registry (ACR), Azure Log Analytics, Azure Container Apps Environment, Azure CosmosDB, Azure EventHub.
+
+A imagem abaixo demonstra como ficará o ambiente final após iniciamos todos os procedimentos de criação do ambiente e publicação do microsserviços.
+
+![Azure Services](/public-images/azure-aca-01.png)
+
+**Itens necessários em seu ambiente**
+- Instale o .NET SDK 6 ou superior
+- Visual Studio Code
+- Uma conta ativa no [Microsoft Azure](https://azure.com)
+- Uma conta ativa na plataforma [DevPrime](https:/devprime.io) e licença de uso Devloper ou Enterprise.
+- [DevPrime CLI](../../../getting-started/) instalado e ativo (`dp auth`)
+- Azure CLI instalado e ativo (`az login`)
+- Docker local ativo
+- Microsoft Powershell instalado
+- Microsoft Bicep instalado ( `az bicep install`)
+- GIT
+
+Neste artigo nós utilizaremos dois microsserviços construidos pelo DevPrime e implementados conforme apresentado no artigo [Asynchronous Microservices Communication](../../../how-to/asynchronous-microservices-communication/). Você pode executar previamente o exemplo citado ou ir direto no código disponibilizado pelo github.
+
+Esse projeto utiliza scripts baseados no powershell e no bicep para criar o ambiente do Azure Container Apps no Azure. Você pode adaptar os scripts conforme a sua necessidade.
+
+**Primeiros passos**
+
+a) Execute um clone do projeto no github
+`git clone https://github.com/devprime-io/azure-container-apps-bicep`
+b) Verifique a pasta inicial com os itens Order e Payment. Cada pasta dessa tem um microsserviço desenvolvimento com a plataforma DevPrime.
+![Pasta clonada localmente](/public-images/azure-aca-02.png)
+c)Entre na pasta 'order' e adicione a sua licença Devprime. Após executar o comando ele vai alterar 
+o arquivo 'order\src\App\appsettings.json'
+`dp license`
+d)Entre na pasta 'payment' e adicione a sua licença Devprime. Após executar ele vai alterar 
+o arquivo 'order\src\App\appsettings.json'
+`dp license`
+
+**Credenciais locais do banco de dados e stream**
+Para executar o microsserviço locamente adicionando as credenciais de um banco de dados mongodb e um cluster kafka no projeto order e no projeto payment editando o arquivo 'appsettings.json' conforme exemplo abaixo. No momento do deployment nós utilizaremos as credenciais do ambiente Azure.
+
+Opcionalmente localize as chaves 'State' e 'Stream' e altere os valores com credenciais de serviços mongodb e/ou kafka nas pastas 'order' e 'payment'
+
+`code order\src\App\appsettings.json`
+`code payment\src\App\appsettings.json`
+
+**Executando o microsserviço localmente**
+Entre na pasta order ou payment e execute
+ `.\run.ps1 ou ./run.sh (Linux, macOS)`
+
+**Exportando configurações dos microservices**
+Entre na pasta 'order' e execute o comando export do DevPrime CLI para criação de um arquivo de deployment. Repita o mesmo procedimento na pasta  e 'payment'. Nós cópiaremos alguns parâmetros. 
+`dp export kubernetes`
+
+Agora retorne a pasta raiz e abra os arquivos para observar os parâmetros que serão enviados
+durante do deployment do Azure Container Apps. Visualize a chave 'env:' nos arquivos abaixo.
+`code order\.devprime\kubernetes\deployment.yml`
+`code payment\.devprime\kubernetes\deployment.yml`
+
+**[Environment variables**
+Ao executar os microsserviços Order e Payment na instância do Azure Container Apps é necessário configurar as variáveis de ambiente. Esse procedimento é muito parecido com o utilizado no Docker e Kubernetes e você poderá ter uma visualização na imagem abaixo.
+![Environment variables](/public-images/azure-aca-03.png)
+
+**Definindo as variáveis de ambiente**
+a) Edite o arquivo 1-docker-build-push.ps1, 2-deploy-azure.ps1 e 3-cleanup.ps1 setando um novo valor na variável $app. Não utilize caracteres especiais.
+b) Edite o arquivo deploy\main.bicep para alterar as configurações das variáveis de ambiente. 
+`code deploy\main.bicep`
+c) Copie o conteúdo da chave 'devprime_app' no arquivo 'order\.devprime\kubernetes\deployment.yml' em Order e altere no arquivo deploy\main.bicep na chave do microsserviço Order. Observe que no main.bicep nós criaremos duas instâncias do Azure Container Apps e você deve repetir os pasos no Payment.
+```
+// Container Apps: Order
+// Container Apps: Payment
+``` 
+Nesse exemplo não alteraremos outras configurações. Caso necessite definir mais parâmetros para a sua aplicação repita o procedimento as outras chaves.
+
+**Executando a criação do ambiente no Azure Container Apps**
+Nós executaremos os scripts para que possa acompanhar passo a passo. Ao final se tudo correr bem você já terá nos logs a url do Azure Container Apps e consultará os serviços no portal do Azure.
+
+a) Inicieremos com a criação dos serviços Azure Resource Group, Azure Container Registry (ACR), Docker Build e Push das imagens dos microsserviços para o repostório privado no ACR.
+`.\1-docker-build-push.ps1`
+
+b) Agora utillizaremos o bicep para criar Azure Container Apps, Azure Container App Environment, Azure CosmosDB, Log Analytics, Event Hubs.
+`.\2-deploy-azure.ps1`
+
+**Acessando os microsservices no Azure Container Apps**
+Em nosso exemplo ao criar os serviços no Container Apps nós estamos utilizando a opção de receber requests (ingress) por meio de um endpoint público. 
+
+As urls abaixo são exemplos dos acessos disponibilizados. Obtenha os seus.
+- https://appdevprimeorder.calmbush-62be1470.canadacentral.azurecontainerapps.io
+![Microservices Order](/public-images/azure-aca-04.png)
+
+- https://appdevprimepayment.calmbush-62be1470.canadacentral.azurecontainerapps.io
+![Microservices Payment](/public-images/azure-aca-05.png)
+
+Ao fazer um post na API do Order ele vai processar a regra de negócio, persistência no mongodb (Azure CosmosDB) e depois emitirá um evento pelo Kafka (Azure EventHub).
+
+O segundo microsserviços regiará ao evento e efetuará o seu ciclo natural de processamento conforme a regra de negócio implementada.
+
+**Excluindo todo o ambiente criado**
+Para excluir todos os serviços criados no Azure execute o script abaixo. Antes de confirmar certifique-se sobre o nome do Resource Group criado nessa demonstração
+`.\3-cleanup.ps1`
+
+
+**Sugestão para próximos passos**
+- Automatize esse processo utilizando Azure DevOps, Github...
+- Adicione uma configuração de segurança na exposição das API's
+- Adicione um serviço do Azure API Management
+
+**Para saber mais:**
+[Azure Container Apps documentation](https://docs.microsoft.com/en-us/azure/container-apps/)
+[How to deploy Azure Container Apps with Bicep](https://www.thorsten-hans.com/how-to-deploy-azure-container-apps-with-bicep/)
+[Deploy to Azure Container App from using a CI/CD Azure DevOps](https://thomasthornton.cloud/2022/02/11/deploy-to-azure-container-app-from-azure-container-registry-using-a-ci-cd-azure-devops-pipeline-and-azure-cli%EF%BF%BC/)
+[How to Build and Deliver Apps Fast and Scalable with Azure Container Apps](https://www.youtube.com/watch?v=b3dopSTnSRg)
+[Output connection strings and keys from Azure Bicep](https://blog.johnnyreilly.com/2021/07/07/output-connection-strings-and-keys-from-azure-bicep/)
+[CosmosDB Bicep](https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb/manage-with-bicep)
