@@ -1,0 +1,11 @@
+﻿global using DevPrime.Stack.Foundation.Application;
+global using DevPrime.Stack.Foundation;
+global using System;
+global using System.Linq;
+global using System.Collections.Generic;
+global using Application.Interfaces.Services;
+global using Application.Interfaces.Adapters.State;
+global using Application.Interfaces.Adapters.Tools;
+global using Application.Services.Order.Model;
+global using Application.EventHandlers.Order;
+global using Domain.Aggregates.Order.Events;

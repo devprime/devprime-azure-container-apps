@@ -1,0 +1,29 @@
+﻿html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f2f2f2;
+    font-family: Montserrat, Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 14px;
+    color: #394a56;
+}
+
+/* #region LINKS */
+
+a:link {
+    color: #000;
+}
+
+a:visited {
+    color: #000;
+}
+
+a:hover {
+    color: #a100ff;
+}
+
+a:active {
+    color: #a100ff;
+}
+
+/* #endregion */
