@@ -52,14 +52,17 @@ Optionally locate the 'State' and 'Stream' keys and change the values with mongo
 
 **Running the microservice locally**
 Enter the order or payment folder and run
+
 `.\run.ps1 or ./run.sh (Linux, macOS)`
 
 **Exporting microservices settings**
 Enter the 'order' folder and run the DevPrime CLI export command to create a deployment file. Repeat the same procedure on the 'payment' folder. We will copy some parameters.
+
 `dp export kubernetes`
 
 Now return to the root folder and open the files to observe the parameters that will be sent
 during deployment of Azure Container Apps. View the 'env:' key in the files below.
+
 `code order\.devprime\kubernetes\deployment.yml`
 `code payment\.devprime\kubernetes\deployment.yml`
 
