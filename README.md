@@ -29,6 +29,7 @@ This project uses powershell and bicep based scripts to create the Azure Contain
 
 a) Run a clone of the project on github
 `git clone https://github.com/devprime-io/azure-container-apps-bicep`
+
 b) Check the home folder with the Order and Payment items. Each such folder has a development microservice with the DevPrime platform.
 ![Folder cloned locally](/public-images/azure-aca-02.png)
 
@@ -50,7 +51,7 @@ Optionally locate the 'State' and 'Stream' keys and change the values with mongo
 
 **Running the microservice locally**
 Enter the order or payment folder and run
- `.\run.ps1 or ./run.sh (Linux, macOS)`
+`.\run.ps1 or ./run.sh (Linux, macOS)`
 
 **Exporting microservices settings**
 Enter the 'order' folder and run the DevPrime CLI export command to create a deployment file. Repeat the same procedure on the 'payment' folder. We will copy some parameters.
@@ -61,8 +62,8 @@ during deployment of Azure Container Apps. View the 'env:' key in the files belo
 `code order\.devprime\kubernetes\deployment.yml`
 `code payment\.devprime\kubernetes\deployment.yml`
 
-**[Environment variables**
-Ao executar os microsserviços Order e Payment na instância do Azure Container Apps é necessário configurar as variáveis de ambiente. Esse procedimento é muito parecido com o utilizado no Docker e Kubernetes e você poderá ter uma visualização na imagem abaixo.
+**[Environment variables]**
+When running the Order and Payment microservices on the Azure Container Apps instance, it is necessary to configure the environment variables. This procedure is very similar to the one used in Docker and Kubernetes and you can see a preview in the image below.
 
 ![Environment variables](/public-images/azure-aca-03.png)
 
