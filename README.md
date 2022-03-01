@@ -73,6 +73,7 @@ When running the Order and Payment microservices on the Azure Container Apps ins
 a) Edit the files 1-docker-build-push.ps1, 2-deploy-azure.ps1 and 3-cleanup.ps1 by setting a new value in the $app variable. Do not use special characters.
 
 b) Edit the deploy\main.bicep file to change the environment variable settings.
+
 `code deploy\main.bicep`
 
 c) Copy the contents of the key 'devprime_app' in the file 'order\.devprime\kubernetes\deployment.yml' in Order and change in the file deploy\main.bicep in the microservice key Order. Note that in main.bicep we will create two instances of Azure Container Apps and you must repeat the steps in Payment.
@@ -98,6 +99,7 @@ b) Now we will use the bicep to create Azure Container Apps, Azure Container App
 In our example when creating the services in Container Apps we are using the option to receive requests (ingress) through a public endpoint.
 
 The urls below are examples of the accesses available. Get yours.
+
 - https://appdevprimeorder.calmbush-62be1470.canadacentral.azurecontainerapps.io
 ![Microservices Order](/public-images/azure-aca-04.png)
 
@@ -110,6 +112,7 @@ The second microservices will respond to the event and perform its natural proce
 
 **Excluding all created environment**
 To delete all services created in Azure run the script below. Before confirming make sure about the name of the Resource Group created in this demo
+
 `.\3-cleanup.ps1`
 
 
@@ -119,6 +122,7 @@ To delete all services created in Azure run the script below. Before confirming 
 - Add an Azure API Management service
 
 **Additional Research**
+
 [Azure Container Apps documentation](https://docs.microsoft.com/en-us/azure/container-apps/)
 [How to deploy Azure Container Apps with Bicep](https://www.thorsten-hans.com/how-to-deploy-azure-container-apps-with-bicep/)
 [Deploy to Azure Container App from using a CI/CD Azure DevOps](https://thomasthornton.cloud/2022/02/11/deploy-to-azure-container-app-from-azure-container-registry-using-a-ci-cd-azure-devops-pipeline-and-azure-cli%EF%BF%BC/)
