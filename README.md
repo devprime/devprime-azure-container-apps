@@ -130,8 +130,13 @@ To delete all services created in Azure run the script below. Before confirming 
 **Additional Research**
 
 [Azure Container Apps documentation](https://docs.microsoft.com/en-us/azure/container-apps/)
+
 [How to deploy Azure Container Apps with Bicep](https://www.thorsten-hans.com/how-to-deploy-azure-container-apps-with-bicep/)
+
 [Deploy to Azure Container App from using a CI/CD Azure DevOps](https://thomasthornton.cloud/2022/02/11/deploy-to-azure-container-app-from-azure-container-registry-using-a-ci-cd-azure-devops-pipeline-and-azure-cli%EF%BF%BC/)
+
 [How to Build and Deliver Apps Fast and Scalable with Azure Container Apps](https://www.youtube.com/watch?v=b3dopSTnSRg)
+
 [Output connection strings and keys from Azure Bicep](https://blog.johnnyreilly.com/2021/07/07/output-connection-strings-and-keys-from-azure-bicep/)
+
 [CosmosDB Bicep](https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb/manage-with-bicep)
