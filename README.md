@@ -47,6 +47,7 @@ To run the microservice locally, adding the credentials of a mongodb database an
 Optionally locate the 'State' and 'Stream' keys and change the values with mongodb and/or kafka service credentials in the 'order' and 'payment' folders
 
 `code order\src\App\appsettings.json`
+
 `code payment\src\App\appsettings.json`
 
 **Running the microservice locally**
@@ -67,16 +68,18 @@ When running the Order and Payment microservices on the Azure Container Apps ins
 
 ![Environment variables](/public-images/azure-aca-03.png)
 
-**Definindo as variáveis de ambiente**
-a) Edite o arquivo 1-docker-build-push.ps1, 2-deploy-azure.ps1 e 3-cleanup.ps1 setando um novo valor na variável $app. Não utilize caracteres especiais.
-b) Edite o arquivo deploy\main.bicep para alterar as configurações das variáveis de ambiente. 
+**Setting the environment variables**
+a) Edit the files 1-docker-build-push.ps1, 2-deploy-azure.ps1 and 3-cleanup.ps1 by setting a new value in the $app variable. Do not use special characters.
+
+b) Edit the deploy\main.bicep file to change the environment variable settings.
 `code deploy\main.bicep`
-c) Copie o conteúdo da chave 'devprime_app' no arquivo 'order\.devprime\kubernetes\deployment.yml' em Order e altere no arquivo deploy\main.bicep na chave do microsserviço Order. Observe que no main.bicep nós criaremos duas instâncias do Azure Container Apps e você deve repetir os pasos no Payment.
+
+c) Copy the contents of the key 'devprime_app' in the file 'order\.devprime\kubernetes\deployment.yml' in Order and change in the file deploy\main.bicep in the microservice key Order. Note that in main.bicep we will create two instances of Azure Container Apps and you must repeat the steps in Payment.
 ```
 // Container Apps: Order
 // Container Apps: Payment
-``` 
-Nesse exemplo não alteraremos outras configurações. Caso necessite definir mais parâmetros para a sua aplicação repita o procedimento as outras chaves.
+```
+In this example we will not change other settings. If you need to define more parameters for your application, repeat the procedure for the other keys.
 
 **Executando a criação do ambiente no Azure Container Apps**
 Nós executaremos os scripts para que possa acompanhar passo a passo. Ao final se tudo correr bem você já terá nos logs a url do Azure Container Apps e consultará os serviços no portal do Azure.
