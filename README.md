@@ -28,6 +28,7 @@ This project uses powershell and bicep based scripts to create the Azure Contain
 **First steps**
 
 a) Run a clone of the project on github
+
 `git clone https://github.com/devprime-io/azure-container-apps-bicep`
 
 b) Check the home folder with the Order and Payment items. Each such folder has a development microservice with the DevPrime platform.
@@ -37,6 +38,7 @@ c) Enter the 'order' folder and add your Devprime license. After executing the c
 `dp license`
 
 d) Enter the 'payment' folder and add your Devprime license. After running it will change the file 'order\src\App\appsettings.json' 
+
 `dp license`
 
 **Local database and stream credentials**
