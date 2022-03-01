@@ -5,7 +5,8 @@ Azure Container Apps offers a serverless approach to publishing microservices wi
 
 The implementation of this environment involving two microservices [DevPrime](https://devprime.io) and Azure Container Apps will additionally use Azure Container Registry (ACR), Azure Log Analytics, Azure Container Apps Environment, Azure CosmosDB, Azure EventHub services.
 
-The image below demonstrates how the final environment will look after we start all the procedures for creating the environment and publishing the microservices.
+The image below demonstrates how the final environment will look after we start all the procedures for creating the environment and publishing the microservices. \
+
 ![Azure Services](/public-images/azure-aca-01.png)
 
 **Itens necessários em seu ambiente**
