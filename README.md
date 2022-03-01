@@ -5,7 +5,7 @@ Azure Container Apps offers a serverless approach to publishing microservices wi
 
 The implementation of this environment involving two microservices [DevPrime](https://devprime.io) and Azure Container Apps will additionally use Azure Container Registry (ACR), Azure Log Analytics, Azure Container Apps Environment, Azure CosmosDB, Azure EventHub services.
 
-The image below demonstrates how the final environment will look after we start all the procedures for creating the environment and publishing the microservices. \
+The image below demonstrates how the final environment will look after we start all the procedures for creating the environment and publishing the microservices. 
 
 ![Azure Services](/public-images/azure-aca-01.png)
 
@@ -21,9 +21,9 @@ The image below demonstrates how the final environment will look after we start 
 - Microsoft Bicep installed ( `az bicep install`)
 - GIT
 
-Neste artigo nós utilizaremos dois microsserviços construidos pelo DevPrime e implementados conforme apresentado no artigo [Asynchronous Microservices Communication](../../../how-to/asynchronous-microservices-communication/). Você pode executar previamente o exemplo citado ou ir direto no código disponibilizado pelo github.
+In this article we will use two microservices built by DevPrime and implemented as presented in the article [Asynchronous Microservices Communication](https://docs.devprime.tech/how-to/asynchronous-microservices-communication/). You can run the above example in advance or go straight to the code provided by github.
 
-Esse projeto utiliza scripts baseados no powershell e no bicep para criar o ambiente do Azure Container Apps no Azure. Você pode adaptar os scripts conforme a sua necessidade.
+This project uses powershell and bicep based scripts to create the Azure Container Apps environment in Azure. You can adapt the scripts as per your need.
 
 **Primeiros passos**
 
