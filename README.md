@@ -32,6 +32,7 @@ a) Run a clone of the project on github
 `git clone https://github.com/devprime-io/azure-container-apps-bicep`
 
 b) Check the home folder with the Order and Payment items. Each such folder has a development microservice with the DevPrime platform.
+
 ![Folder cloned locally](/public-images/azure-aca-02.png)
 
 c) Enter the 'order' folder and add your Devprime license. After executing the command it will change the file 'order\src\App\appsettings.json'
