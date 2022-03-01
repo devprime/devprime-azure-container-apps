@@ -3,22 +3,21 @@
 
 Azure Container Apps offers a serverless approach to publishing microservices without the need to use Kubernetes. In this tutorial, we demonstrate publishing two microservices developed using the [DevPrime platform](https://devprime.io).
 
-A implementação desse ambiente envolvendo dois microsserviços [DevPrime](https://devprime.io) e do Azure Container Apps utilizará adicionalmente os serviços Azure Container Registry (ACR), Azure Log Analytics, Azure Container Apps Environment, Azure CosmosDB, Azure EventHub.
+The implementation of this environment involving two microservices [DevPrime](https://devprime.io) and Azure Container Apps will additionally use Azure Container Registry (ACR), Azure Log Analytics, Azure Container Apps Environment, Azure CosmosDB, Azure EventHub services.
 
-A imagem abaixo demonstra como ficará o ambiente final após iniciamos todos os procedimentos de criação do ambiente e publicação do microsserviços.
-
+The image below demonstrates how the final environment will look after we start all the procedures for creating the environment and publishing the microservices.
 ![Azure Services](/public-images/azure-aca-01.png)
 
 **Itens necessários em seu ambiente**
-- Instale o .NET SDK 6 ou superior
+- Install .NET SDK 6 or higher
 - Visual Studio Code
-- Uma conta ativa no [Microsoft Azure](https://azure.com)
-- Uma conta ativa na plataforma [DevPrime](https:/devprime.io) e licença de uso Devloper ou Enterprise.
-- [DevPrime CLI](../../../getting-started/) instalado e ativo (`dp auth`)
-- Azure CLI instalado e ativo (`az login`)
-- Docker local ativo
-- Microsoft Powershell instalado
-- Microsoft Bicep instalado ( `az bicep install`)
+- An active account on [Microsoft Azure](https://azure.com)
+- An active account on the platform [DevPrime](https:/devprime.io) and license to use Devloper or Enterprise.
+- [DevPrime CLI](../../../getting-started/) installed and active (`dp auth`)
+- Azure CLI installed and active (`az login`)
+- Active local docker
+- Microsoft Powershell installed
+- Microsoft Bicep installed ( `az bicep install`)
 - GIT
 
 Neste artigo nós utilizaremos dois microsserviços construidos pelo DevPrime e implementados conforme apresentado no artigo [Asynchronous Microservices Communication](../../../how-to/asynchronous-microservices-communication/). Você pode executar previamente o exemplo citado ou ir direto no código disponibilizado pelo github.
