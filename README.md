@@ -36,6 +36,7 @@ b) Check the home folder with the Order and Payment items. Each such folder has 
 ![Folder cloned locally](/public-images/azure-aca-02.png)
 
 c) Enter the 'order' folder and add your Devprime license. After executing the command it will change the file 'order\src\App\appsettings.json'
+
 `dp license`
 
 d) Enter the 'payment' folder and add your Devprime license. After running it will change the file 'order\src\App\appsettings.json' 
@@ -43,6 +44,7 @@ d) Enter the 'payment' folder and add your Devprime license. After running it wi
 `dp license`
 
 **Local database and stream credentials**
+
 To run the microservice locally, adding the credentials of a mongodb database and a kafka cluster in the order project and in the payment project, editing the 'appsettings.json' file as shown in the example below. At deployment time we will use the credentials of the Azure environment.
 
 Optionally locate the 'State' and 'Stream' keys and change the values with mongodb and/or kafka service credentials in the 'order' and 'payment' folders
@@ -52,6 +54,7 @@ Optionally locate the 'State' and 'Stream' keys and change the values with mongo
 `code payment\src\App\appsettings.json`
 
 **Running the microservice locally**
+
 Enter the order or payment folder and run
 
 `.\run.ps1 or ./run.sh (Linux, macOS)`
@@ -65,9 +68,11 @@ Now return to the root folder and open the files to observe the parameters that 
 during deployment of Azure Container Apps. View the 'env:' key in the files below.
 
 `code order\.devprime\kubernetes\deployment.yml`
+
 `code payment\.devprime\kubernetes\deployment.yml`
 
 **[Environment variables]**
+
 When running the Order and Payment microservices on the Azure Container Apps instance, it is necessary to configure the environment variables. This procedure is very similar to the one used in Docker and Kubernetes and you can see a preview in the image below.
 
 ![Environment variables](/public-images/azure-aca-03.png)
