@@ -39,7 +39,7 @@ c) Enter the 'order' folder and add your Devprime license. After executing the c
 
 `dp license`
 
-d) Enter the 'payment' folder and add your Devprime license. After running it will change the file 'order\src\App\appsettings.json' 
+d) Enter the 'payment' folder and add your Devprime license. After running it will change the file 'payment\src\App\appsettings.json' 
 
 `dp license`
 
