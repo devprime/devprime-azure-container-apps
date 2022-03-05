@@ -14,7 +14,7 @@ The image below demonstrates how the final environment will look after we start 
 - Visual Studio Code
 - An active account on [Microsoft Azure](https://azure.com)
 - An active account on the platform [DevPrime](https://devprime.io) and license to use Devloper or Enterprise.
-- [DevPrime CLI](../../../getting-started/) installed and active (`dp auth`)
+- [DevPrime CLI](https://docs.devprime.tech/getting-started/) installed and active (`dp auth`)
 - Azure CLI installed and active (`az login`)
 - Active local docker
 - Microsoft Powershell installed
