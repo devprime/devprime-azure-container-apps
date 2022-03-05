@@ -29,7 +29,7 @@ This project uses powershell and bicep based scripts to create the Azure Contain
 
 a) Run a clone of the project on github
 
-`git clone https://github.com/devprime-io/azure-container-apps-bicep`
+`git clone https://github.com/devprime/azure-container-apps-bicep`
 
 b) Check the home folder with the Order and Payment items. Each such folder has a development microservice with the DevPrime platform.
 
