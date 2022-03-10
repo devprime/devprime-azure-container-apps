@@ -5,7 +5,7 @@
 		<Version>1.0.0.0</Version>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="devprime.stack.foundation" Version="6.0.24"/>
+    <PackageReference Include="devprime.stack.foundation" Version="6.0.29" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Domain\Domain.csproj" />
