@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
@@ -10,6 +10,6 @@
 		<ProjectReference Include="..\..\Core\Application\Application.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-    <PackageReference Include="devprime.stack.state" Version="6.0.29" />
+    <PackageReference Include="devprime.stack.state" Version="6.0.33" />
 	</ItemGroup>
 </Project>

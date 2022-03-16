@@ -1,9 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 	<ItemGroup>
-    <PackageReference Include="devprime.stack.security" Version="6.0.29" />
+    <PackageReference Include="devprime.stack.security" Version="6.0.33" />
 	</ItemGroup>
 </Project>
