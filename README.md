@@ -37,11 +37,11 @@ b) Check the home folder with the Order and Payment items. Each such folder has 
 
 c) Enter the 'order' folder and add your Devprime license. After executing the command it will change the file 'order\src\App\appsettings.json'
 
-`dp license`
+`dp stack license`
 
 d) Enter the 'payment' folder and add your Devprime license. After running it will change the file 'payment\src\App\appsettings.json' 
 
-`dp license`
+`dp stack license`
 
 **Local database and stream credentials**
 
