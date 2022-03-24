@@ -145,3 +145,6 @@ To delete all services created in Azure run the script below. Before confirming 
 [Output connection strings and keys from Azure Bicep](https://blog.johnnyreilly.com/2021/07/07/output-connection-strings-and-keys-from-azure-bicep/)
 
 [CosmosDB Bicep](https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb/manage-with-bicep)
+
+**Trademarks**
+This project may contain trademarks or logos for projects, products, or services
