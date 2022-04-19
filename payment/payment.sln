@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevPrime.Security", "src\Ad
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevPrime.AppCenter", "src\Adapters\AppCenter\DevPrime.AppCenter.csproj", "{B298789B-2BAA-47B8-B4E3-DCC8F251D2E3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevPrime.Tools", "src\Adapters\Tools\DevPrime.Tools.csproj", "{75676F36-B6A0-41B2-8906-4F3E91912E2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevPrime.Extensions", "src\Adapters\Extensions\DevPrime.Extensions.csproj", "{75676F36-B6A0-41B2-8906-4F3E91912E2A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9B97AC00-45CA-4924-AC25-4C607190178C}"
 EndProject

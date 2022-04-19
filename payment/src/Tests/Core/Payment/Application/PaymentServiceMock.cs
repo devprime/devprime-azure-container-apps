@@ -1,4 +1,4 @@
-﻿namespace Tests_Application.Payment;
+namespace Tests_Application.Payment;
 public class PaymentModelMock : Application.Services.Payment.Model.Payment
 {
     public override Domain.Aggregates.Payment.Payment ToDomain()

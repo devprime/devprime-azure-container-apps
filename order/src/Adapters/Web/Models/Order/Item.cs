@@ -1,4 +1,4 @@
-﻿namespace DevPrime.Web.Models.Order;
+namespace DevPrime.Web.Models.Order;
 public class Item
 {
     public string Description { get; set; }

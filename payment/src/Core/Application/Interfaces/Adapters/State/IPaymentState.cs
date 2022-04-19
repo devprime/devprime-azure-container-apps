@@ -1,4 +1,4 @@
-﻿namespace Application.Interfaces.Adapters.State;
+namespace Application.Interfaces.Adapters.State;
 public interface IPaymentState
 {
     IPaymentRepository Payment { get; set; }

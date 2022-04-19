@@ -1,4 +1,4 @@
-﻿namespace Application.Interfaces.Services;
+namespace Application.Interfaces.Services;
 public interface IPaymentService
 {
     void Add(Application.Services.Payment.Model.Payment command);

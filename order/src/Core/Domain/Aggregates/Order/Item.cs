@@ -1,4 +1,4 @@
-﻿namespace Domain.Aggregates.Order;
+namespace Domain.Aggregates.Order;
 public class Item : Entity
 {
     public string Description { get; private set; }

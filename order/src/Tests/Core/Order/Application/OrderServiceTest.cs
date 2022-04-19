@@ -1,4 +1,4 @@
-﻿namespace Tests_Application.Order;
+namespace Tests_Application.Order;
 public class OrderServiceTest
 {
     [Fact]

@@ -1,4 +1,4 @@
-﻿namespace DevPrime.State.Repositories.Payment.Model;
+namespace DevPrime.State.Repositories.Payment.Model;
 public class Payment
 {
     [BsonId]

@@ -1,5 +1,5 @@
 $app = "appdevprime"
-$region = "Canada Central"
+$region = "eastus"
 $group =  $app + "group"
 $environment = $app + "environment"
 $logs = $app + "logs"

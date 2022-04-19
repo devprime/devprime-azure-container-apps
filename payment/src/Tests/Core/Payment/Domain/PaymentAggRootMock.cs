@@ -1,4 +1,4 @@
-﻿namespace Tests_Domain.Payment;
+namespace Tests_Domain.Payment;
 public partial class PaymentAggRootTest
 {
     public Domain.Aggregates.Payment.Payment MockPayment()

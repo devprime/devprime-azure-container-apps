@@ -1,4 +1,4 @@
-﻿namespace Application.EventHandlers.Payment;
+namespace Application.EventHandlers.Payment;
 public class PaymentCreatedEventHandler : EventHandler<PaymentCreated, IPaymentState>
 {
     public PaymentCreatedEventHandler(IPaymentState state, IDp dp) : base(state, dp)

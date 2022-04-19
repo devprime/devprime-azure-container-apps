@@ -1,4 +1,4 @@
-﻿namespace Application.Interfaces.Adapters.State;
+namespace Application.Interfaces.Adapters.State;
 public interface IPaymentRepository
 {
     void Add(Domain.Aggregates.Payment.Payment source);

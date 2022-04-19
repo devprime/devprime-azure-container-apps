@@ -1,4 +1,4 @@
-﻿namespace Tests_Application.Payment;
+namespace Tests_Application.Payment;
 public class PaymentServiceTest
 {
     [Fact]

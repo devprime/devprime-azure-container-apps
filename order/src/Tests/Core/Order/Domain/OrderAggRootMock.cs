@@ -1,4 +1,4 @@
-﻿namespace Tests_Domain.Order;
+namespace Tests_Domain.Order;
 public partial class OrderAggRootTest
 {
     public Domain.Aggregates.Order.Order MockOrder()

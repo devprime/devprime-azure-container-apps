@@ -1,4 +1,4 @@
-﻿namespace Application.EventHandlers.Payment;
+namespace Application.EventHandlers.Payment;
 public class PaymentUpdatedEventHandler : EventHandler<PaymentUpdated, IPaymentState>
 {
     public PaymentUpdatedEventHandler(IPaymentState state, IDp dp) : base(state, dp)

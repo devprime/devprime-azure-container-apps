@@ -1,4 +1,4 @@
-﻿namespace Application.Services.Order;
+namespace Application.Services.Order;
 public class OrderService : ApplicationService<IOrderState>, IOrderService
 {
     public OrderService(IOrderState state, IDp dp) : base(state, dp)

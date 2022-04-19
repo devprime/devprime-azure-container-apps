@@ -1,4 +1,4 @@
-﻿namespace Application.Services.Order.Model;
+namespace Application.Services.Order.Model;
 public class Order
 {
     internal int? Limit { get; set; }

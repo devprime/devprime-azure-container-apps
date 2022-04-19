@@ -16,10 +16,10 @@ The image below demonstrates how the final environment will look after we start 
 - An active account on the platform [DevPrime](https://devprime.io) and license to use Devloper or Enterprise.
 - [DevPrime CLI](https://docs.devprime.tech/getting-started/) installed and active (`dp auth`)
 - Azure CLI installed and active (`az login`)
-- Active local docker
+- Active local docker  (`docker login`)
 - Microsoft Powershell installed
 - Microsoft Bicep installed ( `az bicep install`)
-- GIT
+- GIT installed
 
 In this article we will use two microservices built by DevPrime and implemented as presented in the article [Asynchronous Microservices Communication](https://docs.devprime.tech/how-to/asynchronous-microservices-communication/). You can run the above example in advance or go straight to the code provided by github.
 

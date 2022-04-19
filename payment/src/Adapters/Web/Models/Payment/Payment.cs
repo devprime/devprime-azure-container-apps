@@ -1,4 +1,4 @@
-﻿namespace DevPrime.Web.Models.Payment;
+namespace DevPrime.Web.Models.Payment;
 public class Payment
 {
     public string CustomerName { get; set; }

@@ -1,4 +1,4 @@
-﻿namespace DevPrime.Web;
+namespace DevPrime.Web;
 public class Order : Routes
 {
     public override void Endpoints(WebApplication app)

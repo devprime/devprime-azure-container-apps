@@ -1,4 +1,4 @@
-﻿namespace Tests_Application.Order;
+namespace Tests_Application.Order;
 public class OrderModelMock : Application.Services.Order.Model.Order
 {
     public override Domain.Aggregates.Order.Order ToDomain()

@@ -1,4 +1,4 @@
-﻿namespace Application.Services.Payment;
+namespace Application.Services.Payment;
 public class PaymentService : ApplicationService<IPaymentState>, IPaymentService
 {
     public PaymentService(IPaymentState state, IDp dp) : base(state, dp)

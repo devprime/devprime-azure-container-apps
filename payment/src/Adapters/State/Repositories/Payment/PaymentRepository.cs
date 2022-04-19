@@ -1,4 +1,4 @@
-﻿namespace DevPrime.State.Repositories.Payment;
+namespace DevPrime.State.Repositories.Payment;
 public class PaymentRepository : RepositoryBase, IPaymentRepository
 {
     public PaymentRepository(IDpState dp) : base(dp)
@@ -12,7 +12,7 @@ public class PaymentRepository : RepositoryBase, IPaymentRepository
     {
         Dp.Pipeline(Execute: (stateContext) =>
         {
-            var state = new ConnectionMongo(stateContext);
+            var state = new ConnectionMongo(stateContext, Dp);
             var _payment = ToState(payment);
             state.Payment.InsertOne(_payment);
         });
@@ -22,7 +22,7 @@ public class PaymentRepository : RepositoryBase, IPaymentRepository
     {
         Dp.Pipeline(Execute: (stateContext) =>
         {
-            var state = new ConnectionMongo(stateContext);
+            var state = new ConnectionMongo(stateContext, Dp);
             state.Payment.DeleteOne(p => p.PaymentID == paymentID);
         });
     }
@@ -31,7 +31,7 @@ public class PaymentRepository : RepositoryBase, IPaymentRepository
     {
         Dp.Pipeline(Execute: (stateContext) =>
         {
-            var state = new ConnectionMongo(stateContext);
+            var state = new ConnectionMongo(stateContext, Dp);
             var _payment = ToState(payment);
             _payment.Id = state.Payment.Find(p => p.PaymentID == payment.ID).FirstOrDefault().Id;
             state.Payment.ReplaceOne(p => p.PaymentID == payment.ID, _payment);
@@ -46,7 +46,7 @@ public class PaymentRepository : RepositoryBase, IPaymentRepository
     {
         return Dp.Pipeline(ExecuteResult: (stateContext) =>
         {
-            var state = new ConnectionMongo(stateContext);
+            var state = new ConnectionMongo(stateContext, Dp);
             var payment = state.Payment.Find(p => p.PaymentID == paymentID).FirstOrDefault();
             var _payment = ToDomain(payment);
             return _payment;
@@ -57,19 +57,31 @@ public class PaymentRepository : RepositoryBase, IPaymentRepository
     {
         return Dp.Pipeline(ExecuteResult: (stateContext) =>
         {
-            var state = new ConnectionMongo(stateContext);
-            if (limit is null)
-                limit = 1;
-            if (offset is null)
-                offset = 1;
+            var state = new ConnectionMongo(stateContext, Dp);
             List<Model.Payment> payment = null;
             if (sort?.ToLower() == "desc")
             {
-                payment = state.Payment.Find(GetFilter(filter)).SortByDescending(GetOrdering(ordering)).Skip((offset - 1) * limit).Limit(limit).ToList();
+                var result = state.Payment.Find(GetFilter(filter)).SortByDescending(GetOrdering(ordering));
+                if (limit != null && offset != null)
+                    payment = result.Skip((offset - 1) * limit).Limit(limit).ToList();
+                else
+                    payment = result.ToList();
+            }
+            else if (sort?.ToLower() == "asc")
+            {
+                var result = state.Payment.Find(GetFilter(filter)).SortBy(GetOrdering(ordering));
+                if (limit != null && offset != null)
+                    payment = result.Skip((offset - 1) * limit).Limit(limit).ToList();
+                else
+                    payment = result.ToList();
             }
             else
             {
-                payment = state.Payment.Find(GetFilter(filter)).SortBy(GetOrdering(ordering)).Skip((offset - 1) * limit).Limit(limit).ToList();
+                var result = state.Payment.Find(GetFilter(filter));
+                if (limit != null && offset != null)
+                    payment = result.Skip((offset - 1) * limit).Limit(limit).ToList();
+                else
+                    payment = result.ToList();
             }
             var _payment = ToDomain(payment);
             return _payment;
@@ -101,14 +113,21 @@ public class PaymentRepository : RepositoryBase, IPaymentRepository
             {
                 var field = slice[0];
                 var value = slice[1];
-                if (field.ToLower() == "customername")
-                    exp = p => p.CustomerName.ToLower() == value.ToLower();
-                else if (field.ToLower() == "orderid")
-                    exp = p => p.OrderID == new Guid(value);
-                else if (field.ToLower() == "value")
-                    exp = p => p.Value == Convert.ToDouble(value);
-                else
+                if (string.IsNullOrWhiteSpace(value))
+                {
                     exp = p => true;
+                }
+                else
+                {
+                    if (field.ToLower() == "customername")
+                        exp = p => p.CustomerName.ToLower() == value.ToLower();
+                    else if (field.ToLower() == "orderid")
+                        exp = p => p.OrderID == new Guid(value);
+                    else if (field.ToLower() == "value")
+                        exp = p => p.Value == Convert.ToDouble(value);
+                    else
+                        exp = p => true;
+                }
             }
         }
         return exp;
@@ -118,7 +137,7 @@ public class PaymentRepository : RepositoryBase, IPaymentRepository
     {
         return Dp.Pipeline(ExecuteResult: (stateContext) =>
         {
-            var state = new ConnectionMongo(stateContext);
+            var state = new ConnectionMongo(stateContext, Dp);
             var payment = state.Payment.Find(x => x.PaymentID == paymentID).Project<Model.Payment>("{ PaymentID: 1 }").FirstOrDefault();
             return (paymentID == payment?.PaymentID);
         });
@@ -128,7 +147,7 @@ public class PaymentRepository : RepositoryBase, IPaymentRepository
     {
         return Dp.Pipeline(ExecuteResult: (stateContext) =>
         {
-            var state = new ConnectionMongo(stateContext);
+            var state = new ConnectionMongo(stateContext, Dp);
             var total = state.Payment.Find(GetFilter(filter)).CountDocuments();
             return total;
         });

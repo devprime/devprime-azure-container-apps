@@ -3,13 +3,12 @@ param location string
 param logId string
 param logKey string
 
-resource env 'Microsoft.Web/kubeEnvironments@2021-02-01' = {
+
+resource env 'Microsoft.App/managedEnvironments@2022-01-01-preview' = {
   name: name
   location: location
   properties: {
-    type: 'managed'
-    internalLoadBalancerEnabled: false
-    appLogsConfiguration: {
+      appLogsConfiguration: {
       destination: 'log-analytics'
       logAnalyticsConfiguration: {
         customerId: logId
@@ -18,4 +17,5 @@ resource env 'Microsoft.Web/kubeEnvironments@2021-02-01' = {
     }
   }
 }
+
 output id string = env.id

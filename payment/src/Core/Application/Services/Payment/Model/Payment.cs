@@ -1,4 +1,4 @@
-﻿namespace Application.Services.Payment.Model;
+namespace Application.Services.Payment.Model;
 public class Payment
 {
     internal int? Limit { get; set; }

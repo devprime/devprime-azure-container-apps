@@ -1,3 +1,6 @@
+//DevPrime
+param DevPrime_License string ='put your devprime license'
+
 //Param
 param location string = resourceGroup().location
 param appName string = 'appdevprime'
@@ -23,7 +26,7 @@ module log 'log-analytics.bicep' = {
 	}
 }
 //Container App Environment
-@description('Criando o Container App Environment')
+@description('Creating Container App Environment')
 module containerAppEnvironment 'container-app-environment.bicep' = {
   name: 'container-app-environment'
   params: {
@@ -79,12 +82,12 @@ module containerAppOder 'container-apps.bicep' = {
 
         {
           name: 'devprime_app'
-          value: 'License=<put yor license>|||Debug=false|||DebugWeb=false|||DebugState=false|||DebugStream=false'
+          value: 'license=${DevPrime_License}|||debug=false|||debugstate=false|||debugstream=false|||debugweb=false|||showenviromentvariables=false|||tenancy=[enable=false,type=Shared,cache=State2,gateway=https://localhost:5003]|||idempotency=[Enable=false,Alias=State2,Duration=86400,Flow=backend,key=idempotency-key,Scope=all,Action=auto]'
         }
 
         {
           name: 'devprime_observability'
-          value: 'enable=true|||saveinfile=false|||hidedetails=false|||showhttperrors=400'
+          value: 'enable=true|||trace=[enable=false,endpoint=http://localhost:9411/api/v2/spans]|||log=[enable=true,save=false,type=text,hidedetails=false,hidedatetime=false,showhttperrors=400,showappname=false,filesize=5242880,export=[enable=false,host=http://localhost:5341,type=seq,apikey=your api key,controllevelswitch=Information]]'
         }
 
         {
@@ -141,12 +144,12 @@ module containerAppPayment 'container-apps.bicep' = {
 
         {
           name: 'devprime_app'
-          value: 'License=<put yor license>|||Debug=false|||DebugWeb=false|||DebugState=false|||DebugStream=false'
+          value: 'license=${DevPrime_License}|||debug=false|||debugstate=false|||debugstream=false|||debugweb=false|||showenviromentvariables=false|||tenancy=[enable=false,type=Shared,cache=State2,gateway=https://localhost:5003]|||idempotency=[Enable=false,Alias=State2,Duration=86400,Flow=backend,key=idempotency-key,Scope=all,Action=auto]'
         }
 
         {
           name: 'devprime_observability'
-          value: 'enable=true|||saveinfile=false|||hidedetails=false|||showhttperrors=400'
+          value: 'enable=true|||trace=[enable=false,endpoint=http://localhost:9411/api/v2/spans]|||log=[enable=true,save=false,type=text,hidedetails=false,hidedatetime=false,showhttperrors=400,showappname=false,filesize=5242880,export=[enable=false,host=http://localhost:5341,type=seq,apikey=your api key,controllevelswitch=Information]]'
         }
 
         {

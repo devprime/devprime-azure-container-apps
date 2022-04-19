@@ -1,4 +1,4 @@
-﻿namespace Application.Interfaces.Adapters.State;
+namespace Application.Interfaces.Adapters.State;
 public interface IOrderRepository
 {
     void Add(Domain.Aggregates.Order.Order source);

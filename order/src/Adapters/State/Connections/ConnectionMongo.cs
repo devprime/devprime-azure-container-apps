@@ -1,7 +1,7 @@
-﻿namespace DevPrime.State.Connections;
+namespace DevPrime.State.Connections;
 public class ConnectionMongo : MongoBaseState
 {
-    public ConnectionMongo(MongoBaseState stateContext) : base(stateContext)
+    public ConnectionMongo(MongoBaseState stateContext, IDpState dp) : base(stateContext, dp)
     {
     }
 

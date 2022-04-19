@@ -1,4 +1,4 @@
-﻿namespace DevPrime.State.Repositories.Order;
+namespace DevPrime.State.Repositories.Order;
 public class OrderRepository : RepositoryBase, IOrderRepository
 {
     public OrderRepository(IDpState dp) : base(dp)
@@ -12,7 +12,7 @@ public class OrderRepository : RepositoryBase, IOrderRepository
     {
         Dp.Pipeline(Execute: (stateContext) =>
         {
-            var state = new ConnectionMongo(stateContext);
+            var state = new ConnectionMongo(stateContext, Dp);
             var _order = ToState(order);
             state.Order.InsertOne(_order);
         });
@@ -22,7 +22,7 @@ public class OrderRepository : RepositoryBase, IOrderRepository
     {
         Dp.Pipeline(Execute: (stateContext) =>
         {
-            var state = new ConnectionMongo(stateContext);
+            var state = new ConnectionMongo(stateContext, Dp);
             state.Order.DeleteOne(p => p.OrderID == orderID);
         });
     }
@@ -31,7 +31,7 @@ public class OrderRepository : RepositoryBase, IOrderRepository
     {
         Dp.Pipeline(Execute: (stateContext) =>
         {
-            var state = new ConnectionMongo(stateContext);
+            var state = new ConnectionMongo(stateContext, Dp);
             var _order = ToState(order);
             _order.Id = state.Order.Find(p => p.OrderID == order.ID).FirstOrDefault().Id;
             state.Order.ReplaceOne(p => p.OrderID == order.ID, _order);
@@ -46,7 +46,7 @@ public class OrderRepository : RepositoryBase, IOrderRepository
     {
         return Dp.Pipeline(ExecuteResult: (stateContext) =>
         {
-            var state = new ConnectionMongo(stateContext);
+            var state = new ConnectionMongo(stateContext, Dp);
             var order = state.Order.Find(p => p.OrderID == orderID).FirstOrDefault();
             var _order = ToDomain(order);
             return _order;
@@ -57,19 +57,31 @@ public class OrderRepository : RepositoryBase, IOrderRepository
     {
         return Dp.Pipeline(ExecuteResult: (stateContext) =>
         {
-            var state = new ConnectionMongo(stateContext);
-            if (limit is null)
-                limit = 1;
-            if (offset is null)
-                offset = 1;
+            var state = new ConnectionMongo(stateContext, Dp);
             List<Model.Order> order = null;
             if (sort?.ToLower() == "desc")
             {
-                order = state.Order.Find(GetFilter(filter)).SortByDescending(GetOrdering(ordering)).Skip((offset - 1) * limit).Limit(limit).ToList();
+                var result = state.Order.Find(GetFilter(filter)).SortByDescending(GetOrdering(ordering));
+                if (limit != null && offset != null)
+                    order = result.Skip((offset - 1) * limit).Limit(limit).ToList();
+                else
+                    order = result.ToList();
+            }
+            else if (sort?.ToLower() == "asc")
+            {
+                var result = state.Order.Find(GetFilter(filter)).SortBy(GetOrdering(ordering));
+                if (limit != null && offset != null)
+                    order = result.Skip((offset - 1) * limit).Limit(limit).ToList();
+                else
+                    order = result.ToList();
             }
             else
             {
-                order = state.Order.Find(GetFilter(filter)).SortBy(GetOrdering(ordering)).Skip((offset - 1) * limit).Limit(limit).ToList();
+                var result = state.Order.Find(GetFilter(filter));
+                if (limit != null && offset != null)
+                    order = result.Skip((offset - 1) * limit).Limit(limit).ToList();
+                else
+                    order = result.ToList();
             }
             var _order = ToDomain(order);
             return _order;
@@ -101,14 +113,21 @@ public class OrderRepository : RepositoryBase, IOrderRepository
             {
                 var field = slice[0];
                 var value = slice[1];
-                if (field.ToLower() == "customername")
-                    exp = p => p.CustomerName.ToLower() == value.ToLower();
-                else if (field.ToLower() == "customertaxid")
-                    exp = p => p.CustomerTaxID.ToLower() == value.ToLower();
-                else if (field.ToLower() == "total")
-                    exp = p => p.Total == Convert.ToDouble(value);
-                else
+                if (string.IsNullOrWhiteSpace(value))
+                {
                     exp = p => true;
+                }
+                else
+                {
+                    if (field.ToLower() == "customername")
+                        exp = p => p.CustomerName.ToLower() == value.ToLower();
+                    else if (field.ToLower() == "customertaxid")
+                        exp = p => p.CustomerTaxID.ToLower() == value.ToLower();
+                    else if (field.ToLower() == "total")
+                        exp = p => p.Total == Convert.ToDouble(value);
+                    else
+                        exp = p => true;
+                }
             }
         }
         return exp;
@@ -118,7 +137,7 @@ public class OrderRepository : RepositoryBase, IOrderRepository
     {
         return Dp.Pipeline(ExecuteResult: (stateContext) =>
         {
-            var state = new ConnectionMongo(stateContext);
+            var state = new ConnectionMongo(stateContext, Dp);
             var order = state.Order.Find(x => x.OrderID == orderID).Project<Model.Order>("{ OrderID: 1 }").FirstOrDefault();
             return (orderID == order?.OrderID);
         });
@@ -128,7 +147,7 @@ public class OrderRepository : RepositoryBase, IOrderRepository
     {
         return Dp.Pipeline(ExecuteResult: (stateContext) =>
         {
-            var state = new ConnectionMongo(stateContext);
+            var state = new ConnectionMongo(stateContext, Dp);
             var total = state.Order.Find(GetFilter(filter)).CountDocuments();
             return total;
         });

@@ -1,4 +1,4 @@
-﻿namespace Application.EventHandlers.Order;
+namespace Application.EventHandlers.Order;
 public class OrderUpdatedEventHandler : EventHandler<OrderUpdated, IOrderState>
 {
     public OrderUpdatedEventHandler(IOrderState state, IDp dp) : base(state, dp)

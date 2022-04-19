@@ -1,4 +1,4 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IOrderState, OrderState>();
@@ -6,7 +6,7 @@ builder.Services.AddMvc(o =>
 {
     o.EnableEndpointRouting = false;
 });
-builder.Services.AddScoped<ITools, Tools>();
+builder.Services.AddScoped<IExtensions, Extensions>();
 builder.Services.AddScoped<IEventStream, EventStream>();
 builder.Services.AddScoped<IEventHandler, Application.EventHandlers.EventHandler>();
 await new DpApp(builder).Run("order", (app) =>

@@ -1,9 +1,13 @@
 $app = "appdevprime"
-$region = "Canada Central"
+$region = "eastus"
 $group =  $app + "group"
 $environment = $app + "environment"
 $logs = $app + "logs"
 $registry =  $app.ToLower() + "registry"
+
+echo "****************************"
+echo "Try docker login"
+docker login
 
 echo "****************************"
 echo "Try creating Resource Group"
@@ -18,6 +22,7 @@ az acr show  -n $registry -g $group
 
 echo "***********************************"
 echo "Creating Docker Credentials"
+# az acr login -n $registry --expose-token
 az acr login -n $registry
 
 

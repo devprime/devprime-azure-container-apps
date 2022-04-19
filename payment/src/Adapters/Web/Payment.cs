@@ -1,4 +1,4 @@
-﻿namespace DevPrime.Web;
+namespace DevPrime.Web;
 public class Payment : Routes
 {
     public override void Endpoints(WebApplication app)

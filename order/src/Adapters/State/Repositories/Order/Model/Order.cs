@@ -1,4 +1,4 @@
-﻿namespace DevPrime.State.Repositories.Order.Model;
+namespace DevPrime.State.Repositories.Order.Model;
 public class Order
 {
     [BsonId]

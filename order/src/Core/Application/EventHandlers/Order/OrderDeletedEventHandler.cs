@@ -1,4 +1,4 @@
-﻿namespace Application.EventHandlers.Order;
+namespace Application.EventHandlers.Order;
 public class OrderDeletedEventHandler : EventHandler<OrderDeleted, IOrderState>
 {
     public OrderDeletedEventHandler(IOrderState state, IDp dp) : base(state, dp)

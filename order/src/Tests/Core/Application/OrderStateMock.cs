@@ -1,4 +1,4 @@
-﻿namespace Tests_Application;
+namespace Tests_Application;
 public class OrderStateMock : IOrderState
 {
     public IOrderRepository Order { get; set; }

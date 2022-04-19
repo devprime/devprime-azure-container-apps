@@ -1,4 +1,4 @@
-﻿namespace DevPrime.State.States;
+namespace DevPrime.State.States;
 public class OrderState : IOrderState
 {
     public IOrderRepository Order { get; set; }

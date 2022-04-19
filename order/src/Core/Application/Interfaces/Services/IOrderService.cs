@@ -1,4 +1,4 @@
-﻿namespace Application.Interfaces.Services;
+namespace Application.Interfaces.Services;
 public interface IOrderService
 {
     void Add(Application.Services.Order.Model.Order command);
