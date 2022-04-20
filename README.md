@@ -13,11 +13,12 @@ The image below demonstrates how the final environment will look after we start 
 - Install .NET SDK 6 or higher
 - Visual Studio Code
 - An active account on [Microsoft Azure](https://azure.com)
-- An active account on the platform [DevPrime](https://devprime.io) and license to use Devloper or Enterprise.
+- An active account on the platform [DevPrime](https://devprime.io)
+- Activate a [free Developer or paid Enterprise](https://devprime.tech/pricing) license 
 - [DevPrime CLI](https://docs.devprime.tech/getting-started/) installed and active (`dp auth`)
 - Azure CLI installed and active (`az login`)
 - Active local docker  (`docker login`)
-- Microsoft Powershell installed
+- Install [PowerShell](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2) on Windows, Linux, and macOS
 - Microsoft Bicep installed ( `az bicep install`)
 - GIT installed
 
@@ -35,13 +36,15 @@ b) Check the home folder with the Order and Payment items. Each such folder has 
 
 ![Folder cloned locally](/public-images/azure-aca-02.png)
 
-c) Enter the 'order' folder and add your Devprime license. After executing the command it will change the file 'order\src\App\appsettings.json'
+c) Enter the 'main' folder and add your Devprime license. </br>
+`dp stack license`</br>
 
-`dp stack license`
+After executing the command it will change the files 
+- 'order\src\App\appsettings.json'
+- 'payment\src\App\appsettings.json' 
 
-d) Enter the 'payment' folder and add your Devprime license. After running it will change the file 'payment\src\App\appsettings.json' 
 
-`dp stack license`
+
 
 **Local database and stream credentials**
 
