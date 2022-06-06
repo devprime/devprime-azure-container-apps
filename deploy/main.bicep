@@ -1,5 +1,5 @@
-//DevPrime
-param DevPrime_License string ='put your devprime license'
+//Insert devprime license key
+param DevPrime_License string ='<put devprime license>'
 
 //Param
 param location string = resourceGroup().location

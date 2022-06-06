@@ -23,6 +23,6 @@
 		<ProjectReference Include="..\Core\Domain\Domain.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-    <PackageReference Include="devprime.stack.app" Version="6.0.49" />
+    <PackageReference Include="devprime.stack.app" Version="6.0.66" />
 	</ItemGroup>
 </Project>
