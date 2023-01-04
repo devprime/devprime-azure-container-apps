@@ -150,4 +150,5 @@ To delete all services created in Azure run the script below. Before confirming 
 [CosmosDB Bicep](https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb/manage-with-bicep)
 
 **Trademarks**
-This project may contain trademarks or logos for projects, products, or services
+- This project may contain trademarks or logos for projects, products, or services
+- This sample code is proprietary to devprime 
