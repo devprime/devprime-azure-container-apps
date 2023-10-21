@@ -1,6 +1,7 @@
 # Speeding Up Microservices with Azure Container Apps and DevPrime
 
 ***Introduction***
+
 [Devprime](https://devprime.io) is a platform that accelerates software developer productivity and saves around 70% of the cost in backend software development by offering a modern software architecture design, components with intelligent behaviors, accelerators, and continuous updates.
 
 Use the Devprime platform to accelerate software modernization and the development of cloud-native Microservices and event-driven APIs using a set of ready-to-use resources. Develop your first microservice in 30 minutes and simplify modernization and digital transformation.
@@ -8,6 +9,7 @@ Use the Devprime platform to accelerate software modernization and the developme
 Azure Container Apps offers a serverless container approach, allowing you to deploy microservices without the need for Kubernetes.
 
 ***Objective***
+
 The objective of this tutorial is to demonstrate the development and deployment of two microservices using the [DevPrime platform](https://devprime.io) and utilizing the Azure Container Apps environment and related services such as Azure Container Registry (ACR), Azure Log Analytics, Azure Container Apps Environment, Azure CosmosDB with MongoDB, and Azure EventHub with Kafka.
 
 The deployment scripts are structured in PowerShell and Bicep and aim to enable the demonstration of this scenario for software developers. In a production environment, it is necessary to implement a DevOps process and use other resources such as Azure Key Vault, API Management, Web Application Firewall, which are not part of this initial demonstration.
@@ -73,6 +75,7 @@ Now return to the root folder and open the files to observe the parameters that 
 `code payment\.devprime\kubernetes\deployment.yml`
 
 ***Introduction to Environment Variables***
+
 Environment variables contain configuration parameters that will be passed to the Azure Container Apps instance.
 
 ![Environment Variables](/public-images/azure-aca-03.png)
@@ -90,6 +93,7 @@ b) Edit the `order/.devprime/kubernetes/deployment.yml` file, locate the "devpri
 
 c) Edit the `deploy\main.bicep` file and locate the line `param DevPrime_License string` and include the Devprime license code.
    `code deploy\main.bicep`
+
 
 
 **Accessing microservices in Azure Container Apps**
