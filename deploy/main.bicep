@@ -1,6 +1,5 @@
 //Insert devprime license key
-param DevPrime_License string ='w9M8LQc2ZuOd02pKmOfFq0WPInU+VfPpVQQsJQlSYOXCRMiVL7F3yDqb/rNLle60RxpdCiPaC6wnUkcEn5kxUgE3zb2K/CjtelI8doMnQmu5FICmV8orRxMUhym6Ybt0htKRno824WXE2hVWqDtuB+8O1LzHRXjuFpooizCAgXY='
-
+param DevPrime_License string ='Put your license`
 //Param
 param location string = resourceGroup().location
 param appName string = 'appdevprime'
