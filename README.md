@@ -1,6 +1,3 @@
-Certamente, aqui está o texto com as quebras de linha revisadas para serem exibidas corretamente no GitHub:
-
-```markdown
 # Speeding Up Microservices with Azure Container Apps and DevPrime
 
 ***Introduction***
