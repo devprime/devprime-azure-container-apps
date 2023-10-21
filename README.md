@@ -1,3 +1,6 @@
+Certamente, aqui está o texto com as quebras de linha revisadas para serem exibidas corretamente no GitHub:
+
+```markdown
 # Speeding Up Microservices with Azure Container Apps and DevPrime
 
 ***Introduction***
@@ -90,6 +93,9 @@ b) Edit the `order/.devprime/kubernetes/deployment.yml` file, locate the "devpri
 
 c) Edit the `deploy\main.bicep` file and locate the line `param DevPrime_License string` and include the Devprime license code.
    `code deploy\main.bicep`
+```
+
+Agora, o texto deve ser exibido corretamente no GitHub com as quebras de linha apropriadas.
 
 **Running environment creation in Azure Container Apps**
 We'll run the scripts so you can follow along step by step. At the end, if everything goes well, you will already have the Azure Container Apps url in the logs and you will consult the services in the Azure portal.
