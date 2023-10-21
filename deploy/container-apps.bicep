@@ -21,7 +21,7 @@ param envVars array = []
 
 
 
-resource containerApp 'Microsoft.App/containerApps@2022-01-01-preview' = {
+resource containerApp 'Microsoft.App/containerApps@2023-05-01' = {
   name: name
   kind: 'mycontainerapp'
   location: location

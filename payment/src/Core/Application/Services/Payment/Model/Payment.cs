@@ -14,7 +14,6 @@ public class Payment
         Filter = filter;
         Sort = sort;
     }
-
     public Guid ID { get; set; }
     public string CustomerName { get; set; }
     public Guid OrderID { get; set; }
@@ -24,35 +23,29 @@ public class Payment
         var _paymentList = ToApplication(paymentList);
         return new PagingResult<IList<Payment>>(_paymentList, total, offSet, limit);
     }
-
     public virtual Payment ToPayment(Domain.Aggregates.Payment.Payment payment)
     {
         var _payment = ToApplication(payment);
         return _payment;
     }
-
     public virtual Domain.Aggregates.Payment.Payment ToDomain()
     {
         var _payment = ToDomain(this);
         return _payment;
     }
-
     public virtual Domain.Aggregates.Payment.Payment ToDomain(Guid id)
     {
         var _payment = new Domain.Aggregates.Payment.Payment();
         _payment.ID = id;
         return _payment;
     }
-
     public Payment()
     {
     }
-
     public Payment(Guid id)
     {
         ID = id;
     }
-
     public static Application.Services.Payment.Model.Payment ToApplication(Domain.Aggregates.Payment.Payment payment)
     {
         if (payment is null)
@@ -64,7 +57,6 @@ public class Payment
         _payment.Value = payment.Value;
         return _payment;
     }
-
     public static List<Application.Services.Payment.Model.Payment> ToApplication(IList<Domain.Aggregates.Payment.Payment> paymentList)
     {
         List<Application.Services.Payment.Model.Payment> _paymentList = new List<Application.Services.Payment.Model.Payment>();
@@ -82,7 +74,6 @@ public class Payment
         }
         return _paymentList;
     }
-
     public static Domain.Aggregates.Payment.Payment ToDomain(Application.Services.Payment.Model.Payment payment)
     {
         if (payment is null)
@@ -90,7 +81,6 @@ public class Payment
         Domain.Aggregates.Payment.Payment _payment = new Domain.Aggregates.Payment.Payment(payment.ID, payment.CustomerName, payment.OrderID, payment.Value);
         return _payment;
     }
-
     public static List<Domain.Aggregates.Payment.Payment> ToDomain(IList<Application.Services.Payment.Model.Payment> paymentList)
     {
         List<Domain.Aggregates.Payment.Payment> _paymentList = new List<Domain.Aggregates.Payment.Payment>();

@@ -1,12 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net7.0</TargetFramework>
 		<DebugType>full</DebugType>
 		<Version>1.0.0.0</Version>
 	</PropertyGroup>
+	<PropertyGroup>
+      <ProjectGuid>{1ebcdb06-5294-4b06-9c45-1a8d299278d1}</ProjectGuid>
+    </PropertyGroup>		
 	<ItemGroup>
-    <PackageReference Include="devprime.stack.foundation" Version="6.0.66" />
-	</ItemGroup>
+		<PackageReference Include="devprime.stack.foundation" Version="7.0.59" />
+  	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Domain\Domain.csproj" />
 	</ItemGroup>

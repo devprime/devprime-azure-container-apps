@@ -5,7 +5,7 @@ $environment = $app + "environment"
 $logs = $app + "logs"
 $registry =  $app.ToLower() + "registry"
 
-echo "****************************"
+Write-Output "****************************"
 echo "Try docker login"
 docker login
 
@@ -17,13 +17,12 @@ az group create -n $group -l $region
 echo "****************************"
 echo "Try creating Container Registry"
 az acr create -n $registry -g $group --sku Basic --admin-enabled true
-az acr show  -n $registry -g $group 
-
+#az acr show  -n $registry -g $group 
 
 echo "***********************************"
 echo "Creating Docker Credentials"
-# az acr login -n $registry --expose-token
-az acr login -n $registry
+$acrpass=$(az acr credential show -n $registry --query 'passwords[0].value')
+az acr login -n $registry -u $registry -p $acrpass
 
 
 echo "***********************************"

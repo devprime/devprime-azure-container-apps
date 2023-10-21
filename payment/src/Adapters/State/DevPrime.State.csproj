@@ -1,15 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net7.0</TargetFramework>
 		<Version>1.0.0.0</Version>
 	</PropertyGroup>
-
+    <PropertyGroup>
+      <ProjectGuid>{45b0f061-520e-4aa8-928f-c07af8dd5ed1}</ProjectGuid>
+    </PropertyGroup>	
 	<ItemGroup>
 		<ProjectReference Include="..\..\Core\Domain\Domain.csproj" />
 		<ProjectReference Include="..\..\Core\Application\Application.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-    <PackageReference Include="devprime.stack.state" Version="6.0.66" />
+		<PackageReference Include="devprime.stack.state" Version="7.0.59" />
 	</ItemGroup>
 </Project>

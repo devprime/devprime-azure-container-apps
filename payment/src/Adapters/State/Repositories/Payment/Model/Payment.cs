@@ -3,14 +3,11 @@ public class Payment
 {
     [BsonId]
     [BsonElement("_id")]
-
-    public ObjectId Id { get; set; }
+    public ObjectId _Id { get; set; }
     [BsonRepresentation(BsonType.String)]
-
-    public Guid PaymentID { get; set; }
+    public Guid ID { get; set; }
     public string CustomerName { get; set; }
     [BsonRepresentation(BsonType.String)]
-
     public Guid OrderID { get; set; }
     public double Value { get; set; }
 }

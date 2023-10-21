@@ -4,7 +4,6 @@ public class OrderService : ApplicationService<IOrderState>, IOrderService
     public OrderService(IOrderState state, IDp dp) : base(state, dp)
     {
     }
-
     public void Add(Model.Order command)
     {
         Dp.Pipeline(Execute: () =>
@@ -14,7 +13,6 @@ public class OrderService : ApplicationService<IOrderState>, IOrderService
             order.Add();
         });
     }
-
     public void Update(Model.Order command)
     {
         Dp.Pipeline(Execute: () =>
@@ -24,7 +22,6 @@ public class OrderService : ApplicationService<IOrderState>, IOrderService
             order.Update();
         });
     }
-
     public void Delete(Model.Order command)
     {
         Dp.Pipeline(Execute: () =>
@@ -34,7 +31,6 @@ public class OrderService : ApplicationService<IOrderState>, IOrderService
             order.Delete();
         });
     }
-
     public PagingResult<IList<Model.Order>> GetAll(Model.Order query)
     {
         return Dp.Pipeline(ExecuteResult: () =>
@@ -46,13 +42,15 @@ public class OrderService : ApplicationService<IOrderState>, IOrderService
             return result;
         });
     }
-
     public Model.Order Get(Model.Order query)
     {
         return Dp.Pipeline(ExecuteResult: () =>
         {
-            var order = query.ToOrder(Dp.State.Order.Get(query.ID));
-            return order;
+            var order = query.ToDomain();
+            Dp.Attach(order);
+            order = order.GetByID();
+            var result = query.ToOrder(order);
+            return result;
         });
     }
 }

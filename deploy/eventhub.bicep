@@ -16,7 +16,7 @@ param eventHubPayment string = 'paymentevents'
 
 var endpoint = '${eventHubNamespace.id}/AuthorizationRules/RootManageSharedAccessKey'
 
-resource eventHubNamespace 'Microsoft.EventHub/namespaces@2021-06-01-preview' = {
+resource eventHubNamespace 'Microsoft.EventHub/namespaces@2023-01-01-preview' = {
   name: appEventHub
   location: location
   sku: {
@@ -30,7 +30,7 @@ resource eventHubNamespace 'Microsoft.EventHub/namespaces@2021-06-01-preview' = 
 }
 
 //KafkaTopicName: Order
-resource eventHubNamespaceName_eventHubName 'Microsoft.EventHub/namespaces/eventhubs@2021-06-01-preview' = {
+resource eventHubNamespaceName_eventHubName 'Microsoft.EventHub/namespaces/eventhubs@2023-01-01-preview' = {
   parent: eventHubNamespace
   name: eventHubOrder
   properties: {

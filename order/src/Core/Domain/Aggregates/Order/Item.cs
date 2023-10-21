@@ -9,12 +9,10 @@ public class Item : Entity
     {
         return Amount * Price;
     }
-
     public void Sum(int amount)
     {
         Amount += amount;
     }
-
     public Item(Guid id, string description, int amount, string sKU, double price)
     {
         ID = (id == Guid.Empty ? Guid.NewGuid() : id);
@@ -23,7 +21,6 @@ public class Item : Entity
         SKU = sKU;
         Price = price;
     }
-
     public Item()
     {
     }

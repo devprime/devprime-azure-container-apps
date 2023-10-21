@@ -14,7 +14,6 @@ public class Payment
         _payment.Value = payment.Value;
         return _payment;
     }
-
     public static List<Application.Services.Payment.Model.Payment> ToApplication(IList<DevPrime.Web.Models.Payment.Payment> paymentList)
     {
         List<Application.Services.Payment.Model.Payment> _paymentList = new List<Application.Services.Payment.Model.Payment>();
@@ -31,7 +30,6 @@ public class Payment
         }
         return _paymentList;
     }
-
     public virtual Application.Services.Payment.Model.Payment ToApplication()
     {
         var model = ToApplication(this);

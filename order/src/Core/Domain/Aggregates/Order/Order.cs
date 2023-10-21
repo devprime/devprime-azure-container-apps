@@ -3,107 +3,79 @@ public class Order : AggRoot
 {
     public string CustomerName { get; private set; }
     public string CustomerTaxID { get; private set; }
-    public IList<Item> Itens { get; private set; }
+    public IList<Item> Items { get; private set; }
     public double Total { get; private set; }
     public void AddItem(Item item)
     {
-        if (item != null && Itens != null)
+        if (item != null && Items != null)
         {
-            var myItens = Itens.Where(p => p.SKU == item.SKU).FirstOrDefault();
-            if (myItens != null)
-                myItens.Sum(item.Amount);
+            var myItems = Items.Where(p => p.SKU == item.SKU).FirstOrDefault();
+            if (myItems != null)
+                myItems.Sum(item.Amount);
             else
-                Itens.Add(item);
+                Items.Add(item);
         }
     }
-
-    public Order(Guid id, string customerName, string customerTaxID, IEnumerable<Domain.Aggregates.Order.Item> itens, double total)
+    public Order(Guid id, string customerName, string customerTaxID, IEnumerable<Domain.Aggregates.Order.Item> items, double total)
     {
         ID = id;
         CustomerName = customerName;
         CustomerTaxID = customerTaxID;
-        Itens = itens?.ToList();
+        Items = items?.ToList();
         Total = total;
     }
-
     public Order()
     {
     }
-
     public virtual void Add()
     {
         Dp.Pipeline(Execute: () =>
         {
-            Dp.Attach(Itens);
+            Dp.Attach(Items);
             ValidFields();
             ID = Guid.NewGuid();
             IsNew = true;
-            Dp.ProcessEvent(new OrderCreated());
+            var success = Dp.ProcessEvent<bool>(new CreateOrder());
+            if (success)
+            {
+                Dp.ProcessEvent(new OrderCreated());
+            }
         });
     }
-
     public virtual void Update()
     {
         Dp.Pipeline(Execute: () =>
         {
-            Dp.Attach(Itens);
+            Dp.Attach(Items);
+            if (ID.Equals(Guid.Empty))
+                Dp.Notifications.Add("ID is required");
             ValidFields();
-            Dp.ProcessEvent(new OrderUpdated());
+            var success = Dp.ProcessEvent<bool>(new UpdateOrder());
+            if (success)
+            {
+                Dp.ProcessEvent(new OrderUpdated());
+            }
         });
     }
-
     public virtual void Delete()
     {
         Dp.Pipeline(Execute: () =>
         {
             if (ID != Guid.Empty)
-                Dp.ProcessEvent(new OrderDeleted());
+            {
+                var success = Dp.ProcessEvent<bool>(new DeleteOrder());
+                if (success)
+                {
+                    Dp.ProcessEvent(new OrderDeleted());
+                }
+            }
         });
     }
-
     public virtual (List<Order> Result, long Total) Get(int? limit, int? offset, string ordering, string sort, string filter)
     {
         return Dp.Pipeline(ExecuteResult: () =>
         {
-            if (offset == null && limit != null)
-            {
-                throw new PublicException("Offset is required if you have limit");
-            }
-            else if (offset != null && limit == null)
-            {
-                throw new PublicException("Limit is required if you have offset");
-            }
-            else if (offset != null && limit != null)
-            {
-                if (offset < 1)
-                    throw new PublicException("Offset must be greater than 1");
-                if (limit < 1)
-                    throw new PublicException("Limit must be greater than 1");
-            }
-            if (string.IsNullOrWhiteSpace(ordering) && !string.IsNullOrWhiteSpace(sort))
-            {
-                throw new PublicException("Ordering is required if you have sort");
-            }
-            else if (!string.IsNullOrWhiteSpace(ordering) && string.IsNullOrWhiteSpace(sort))
-            {
-                throw new PublicException("Sort is required if you have ordering");
-            }
-            else if (!string.IsNullOrWhiteSpace(sort) && !string.IsNullOrWhiteSpace(ordering))
-            {
-                if (sort?.ToLower() != "desc" && sort?.ToLower() != "asc")
-                    throw new PublicException("Sort must be 'Asc' or 'Desc'");
-                bool orderingIsValid = false;
-                if (ordering?.ToLower() == "id")
-                    orderingIsValid = true;
-                if (ordering?.ToLower() == "customername")
-                    orderingIsValid = true;
-                if (ordering?.ToLower() == "customertaxid")
-                    orderingIsValid = true;
-                if (ordering?.ToLower() == "total")
-                    orderingIsValid = true;
-                if (!orderingIsValid)
-                    throw new PublicException($"Ordering '{ordering}' is invalid try: 'ID=somevalue', 'CustomerName=somevalue', 'CustomerTaxID=somevalue', 'Total=somevalue',");
-            }
+            ValidateOrdering(limit, offset, ordering, sort);
             if (!string.IsNullOrWhiteSpace(filter))
             {
                 bool filterIsValid = false;
@@ -125,6 +97,14 @@ public class Order : AggRoot
             {Limit = limit, Offset = offset, Ordering = ordering, Sort = sort, Filter = filter});
             return source;
         });
+    }
+    public virtual Order GetByID()
+    {
+        var result = Dp.Pipeline(ExecuteResult: () =>
+        {
+            return Dp.ProcessEvent<Order>(new OrderGetByID());
+        });
+        return result;
     }
     private void ValidFields()
     {

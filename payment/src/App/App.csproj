@@ -1,9 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net7.0</TargetFramework>
 		<Version>1.0.0.0</Version>
 		<DebugType>portable</DebugType>
 	</PropertyGroup>
+	<PropertyGroup>
+      <ProjectGuid>{46b581b2-a9de-4977-acfd-6781357fd91e}</ProjectGuid>
+    </PropertyGroup>	
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<NoWarn>1701;1702;NU1608</NoWarn>
 	</PropertyGroup>
@@ -23,6 +26,6 @@
 		<ProjectReference Include="..\Core\Domain\Domain.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-    <PackageReference Include="devprime.stack.app" Version="6.0.66" />
+		<PackageReference Include="devprime.stack.app" Version="7.0.59" />
 	</ItemGroup>
 </Project>

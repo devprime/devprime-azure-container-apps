@@ -8,4 +8,8 @@ global using DevPrime.Stack.Test;
 global using System.Linq;
 global using Application.Interfaces.Adapters.State;
 global using Application.Services.Order;
+global using Application.EventHandlers.Order;
+global using Application.Services.Order.Model;
+global using Domain.Aggregates.Order;
 global using Domain.Aggregates.Order.Events;
+global using Application.Interfaces.Services;

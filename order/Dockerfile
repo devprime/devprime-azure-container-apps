@@ -1,18 +1,17 @@
 # Step 1
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:7.0.10-jammy AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-
 # Step 2
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:7.0.400-jammy AS build
 RUN echo "Starting copy..."
 WORKDIR /
-COPY [".", "MyApp/"]
-RUN dotnet restore "MyApp/order.sln"
+COPY [".", "devprime/"]
+RUN dotnet restore "devprime/order.sln"
 #COPY . .
-WORKDIR "/MyApp"
+WORKDIR "/devprime"
 RUN echo "Build..."
 RUN dotnet build "order.sln" -c Release -o /app/build --no-restore
 

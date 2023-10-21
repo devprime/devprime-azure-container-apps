@@ -4,7 +4,7 @@ param logId string
 param logKey string
 
 
-resource env 'Microsoft.App/managedEnvironments@2022-01-01-preview' = {
+resource env 'Microsoft.App/managedEnvironments@2023-05-01' = {
   name: name
   location: location
   properties: {

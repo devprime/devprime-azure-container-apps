@@ -81,7 +81,7 @@ var locations = [
 
 ]
 
-resource accountName_resource 'Microsoft.DocumentDB/databaseAccounts@2021-04-15' = {
+resource accountName_resource 'Microsoft.DocumentDB/databaseAccounts@2023-09-15' = {
   name: accountName_var
   location: location
   kind: 'MongoDB'
@@ -95,7 +95,7 @@ resource accountName_resource 'Microsoft.DocumentDB/databaseAccounts@2021-04-15'
   }
 }
 
-resource accountName_databaseName 'Microsoft.DocumentDB/databaseAccounts/mongodbDatabases@2021-04-15' = {
+resource accountName_databaseName 'Microsoft.DocumentDB/databaseAccounts/mongodbDatabases@2023-09-15' = {
   parent: accountName_resource
   name: databaseName
   properties: {

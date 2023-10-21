@@ -16,7 +16,6 @@ public class Item
         _item.Price = item.Price;
         return _item;
     }
-
     public static List<Application.Services.Order.Model.Item> ToApplication(IList<DevPrime.Web.Models.Order.Item> itemList)
     {
         List<Application.Services.Order.Model.Item> _itemList = new List<Application.Services.Order.Model.Item>();
@@ -34,7 +33,6 @@ public class Item
         }
         return _itemList;
     }
-
     public virtual Application.Services.Order.Model.Item ToApplication()
     {
         var model = ToApplication(this);

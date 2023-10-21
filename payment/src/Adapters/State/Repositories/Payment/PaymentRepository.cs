@@ -7,52 +7,59 @@ public class PaymentRepository : RepositoryBase, IPaymentRepository
     }
 
 #region Write
-
-    public void Add(Domain.Aggregates.Payment.Payment payment)
+    public bool Add(Domain.Aggregates.Payment.Payment payment)
     {
-        Dp.Pipeline(Execute: (stateContext) =>
+        var result = Dp.Pipeline(ExecuteResult: (stateContext) =>
         {
             var state = new ConnectionMongo(stateContext, Dp);
             var _payment = ToState(payment);
             state.Payment.InsertOne(_payment);
+            return true;
         });
+        if (result is null)
+            return false;
+        return result;
     }
-
-    public void Delete(Guid paymentID)
+    public bool Delete(Guid paymentID)
     {
-        Dp.Pipeline(Execute: (stateContext) =>
+        var result = Dp.Pipeline(ExecuteResult: (stateContext) =>
         {
             var state = new ConnectionMongo(stateContext, Dp);
-            state.Payment.DeleteOne(p => p.PaymentID == paymentID);
+            state.Payment.DeleteOne(p => p.ID == paymentID);
+            return true;
         });
+        if (result is null)
+            return false;
+        return result;
     }
-
-    public void Update(Domain.Aggregates.Payment.Payment payment)
+    public bool Update(Domain.Aggregates.Payment.Payment payment)
     {
-        Dp.Pipeline(Execute: (stateContext) =>
+        var result = Dp.Pipeline(ExecuteResult: (stateContext) =>
         {
             var state = new ConnectionMongo(stateContext, Dp);
             var _payment = ToState(payment);
-            _payment.Id = state.Payment.Find(p => p.PaymentID == payment.ID).FirstOrDefault().Id;
-            state.Payment.ReplaceOne(p => p.PaymentID == payment.ID, _payment);
+            _payment._Id = state.Payment.Find(p => p.ID == payment.ID).FirstOrDefault()._Id;
+            state.Payment.ReplaceOne(p => p.ID == payment.ID, _payment);
+            return true;
         });
+        if (result is null)
+            return false;
+        return result;
     }
 
 #endregion Write
 
 #region Read
-
     public Domain.Aggregates.Payment.Payment Get(Guid paymentID)
     {
         return Dp.Pipeline(ExecuteResult: (stateContext) =>
         {
             var state = new ConnectionMongo(stateContext, Dp);
-            var payment = state.Payment.Find(p => p.PaymentID == paymentID).FirstOrDefault();
+            var payment = state.Payment.Find(p => p.ID == paymentID).FirstOrDefault();
             var _payment = ToDomain(payment);
             return _payment;
         });
     }
-
     public List<Domain.Aggregates.Payment.Payment> GetAll(int? limit, int? offset, string ordering, string sort, string filter)
     {
         return Dp.Pipeline(ExecuteResult: (stateContext) =>
@@ -89,7 +96,7 @@ public class PaymentRepository : RepositoryBase, IPaymentRepository
     }
     private Expression<Func<Model.Payment, object>> GetOrdering(string field)
     {
-        Expression<Func<Model.Payment, object>> exp = p => p.PaymentID;
+        Expression<Func<Model.Payment, object>> exp = p => p.ID;
         if (!string.IsNullOrWhiteSpace(field))
         {
             if (field.ToLower() == "customername")
@@ -99,50 +106,70 @@ public class PaymentRepository : RepositoryBase, IPaymentRepository
             else if (field.ToLower() == "value")
                 exp = p => p.Value;
             else
-                exp = p => p.PaymentID;
+                exp = p => p.ID;
         }
         return exp;
     }
-    private Expression<Func<Model.Payment, bool>> GetFilter(string filter)
+    private FilterDefinition<Model.Payment> GetFilter(string filter)
     {
-        Expression<Func<Model.Payment, bool>> exp = p => true;
+        var builder = Builders<Model.Payment>.Filter;
+        FilterDefinition<Model.Payment> exp;
+        string CustomerName = string.Empty;
+        Guid? OrderID = null;
+        Double? Value = null;
         if (!string.IsNullOrWhiteSpace(filter))
         {
-            var slice = filter?.Split("=");
-            if (slice.Length > 1)
+            var conditions = filter.Split(",");
+            if (conditions.Count() >= 1)
             {
-                var field = slice[0];
-                var value = slice[1];
-                if (string.IsNullOrWhiteSpace(value))
+                foreach (var condition in conditions)
                 {
-                    exp = p => true;
-                }
-                else
-                {
-                    if (field.ToLower() == "customername")
-                        exp = p => p.CustomerName.ToLower() == value.ToLower();
-                    else if (field.ToLower() == "orderid")
-                        exp = p => p.OrderID == new Guid(value);
-                    else if (field.ToLower() == "value")
-                        exp = p => p.Value == Convert.ToDouble(value);
-                    else
-                        exp = p => true;
+                    var slice = condition?.Split("=");
+                    if (slice.Length > 1)
+                    {
+                        var field = slice[0];
+                        var value = slice[1];
+                        if (field.ToLower() == "customername")
+                            CustomerName = value;
+                        else if (field.ToLower() == "orderid")
+                            OrderID = new Guid(value);
+                        else if (field.ToLower() == "value")
+                            Value = Convert.ToDouble(value);
+                    }
                 }
             }
         }
+        var bfilter = builder.Empty;
+        if (!string.IsNullOrWhiteSpace(CustomerName))
+        {
+            var CustomerNameFilter = builder.Eq(x => x.CustomerName, CustomerName);
+            bfilter &= CustomerNameFilter;
+        }
+        if (OrderID != null)
+        {
+            var OrderIDFilter = builder.Eq(x => x.OrderID, OrderID);
+            bfilter &= OrderIDFilter;
+        }
+        if (Value != null)
+        {
+            var ValueFilter = builder.Eq(x => x.Value, Value);
+            bfilter &= ValueFilter;
+        }
+        exp = bfilter;
         return exp;
     }
-
     public bool Exists(Guid paymentID)
     {
-        return Dp.Pipeline(ExecuteResult: (stateContext) =>
+        var result = Dp.Pipeline(ExecuteResult: (stateContext) =>
         {
             var state = new ConnectionMongo(stateContext, Dp);
-            var payment = state.Payment.Find(x => x.PaymentID == paymentID).Project<Model.Payment>("{ PaymentID: 1 }").FirstOrDefault();
-            return (paymentID == payment?.PaymentID);
+            var payment = state.Payment.Find(x => x.ID == paymentID).Project<Model.Payment>("{ ID: 1 }").FirstOrDefault();
+            return (paymentID == payment?.ID);
         });
+        if (result is null)
+            return false;
+        return result;
     }
-
     public long Total(string filter)
     {
         return Dp.Pipeline(ExecuteResult: (stateContext) =>
@@ -156,28 +183,25 @@ public class PaymentRepository : RepositoryBase, IPaymentRepository
 #endregion Read
 
 #region mappers
-
     public static DevPrime.State.Repositories.Payment.Model.Payment ToState(Domain.Aggregates.Payment.Payment payment)
     {
         if (payment is null)
             return new DevPrime.State.Repositories.Payment.Model.Payment();
         DevPrime.State.Repositories.Payment.Model.Payment _payment = new DevPrime.State.Repositories.Payment.Model.Payment();
-        _payment.PaymentID = payment.ID;
+        _payment.ID = payment.ID;
         _payment.CustomerName = payment.CustomerName;
         _payment.OrderID = payment.OrderID;
         _payment.Value = payment.Value;
         return _payment;
     }
-
     public static Domain.Aggregates.Payment.Payment ToDomain(DevPrime.State.Repositories.Payment.Model.Payment payment)
     {
         if (payment is null)
             return new Domain.Aggregates.Payment.Payment()
             {IsNew = true};
-        Domain.Aggregates.Payment.Payment _payment = new Domain.Aggregates.Payment.Payment(payment.PaymentID, payment.CustomerName, payment.OrderID, payment.Value);
+        Domain.Aggregates.Payment.Payment _payment = new Domain.Aggregates.Payment.Payment(payment.ID, payment.CustomerName, payment.OrderID, payment.Value);
         return _payment;
     }
-
     public static List<Domain.Aggregates.Payment.Payment> ToDomain(IList<DevPrime.State.Repositories.Payment.Model.Payment> paymentList)
     {
         List<Domain.Aggregates.Payment.Payment> _paymentList = new List<Domain.Aggregates.Payment.Payment>();
@@ -185,7 +209,7 @@ public class PaymentRepository : RepositoryBase, IPaymentRepository
         {
             foreach (var payment in paymentList)
             {
-                Domain.Aggregates.Payment.Payment _payment = new Domain.Aggregates.Payment.Payment(payment.PaymentID, payment.CustomerName, payment.OrderID, payment.Value);
+                Domain.Aggregates.Payment.Payment _payment = new Domain.Aggregates.Payment.Payment(payment.ID, payment.CustomerName, payment.OrderID, payment.Value);
                 _paymentList.Add(_payment);
             }
         }

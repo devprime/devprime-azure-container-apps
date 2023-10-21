@@ -4,12 +4,10 @@ public class PaymentUpdatedEventHandler : EventHandler<PaymentUpdated, IPaymentS
     public PaymentUpdatedEventHandler(IPaymentState state, IDp dp) : base(state, dp)
     {
     }
-
     public override dynamic Handle(PaymentUpdated paymentUpdated)
     {
         var success = false;
         var payment = paymentUpdated.Get<Domain.Aggregates.Payment.Payment>();
-        Dp.State.Payment.Update(payment);
         var destination = Dp.Settings.Default("stream.paymentevents");
         var eventName = "PaymentUpdated";
         var eventData = new PaymentUpdatedEventDTO()

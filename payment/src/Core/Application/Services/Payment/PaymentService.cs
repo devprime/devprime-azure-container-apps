@@ -4,7 +4,6 @@ public class PaymentService : ApplicationService<IPaymentState>, IPaymentService
     public PaymentService(IPaymentState state, IDp dp) : base(state, dp)
     {
     }
-
     public void Add(Model.Payment command)
     {
         Dp.Pipeline(Execute: () =>
@@ -14,7 +13,6 @@ public class PaymentService : ApplicationService<IPaymentState>, IPaymentService
             payment.Add();
         });
     }
-
     public void Update(Model.Payment command)
     {
         Dp.Pipeline(Execute: () =>
@@ -24,7 +22,6 @@ public class PaymentService : ApplicationService<IPaymentState>, IPaymentService
             payment.Update();
         });
     }
-
     public void Delete(Model.Payment command)
     {
         Dp.Pipeline(Execute: () =>
@@ -34,7 +31,6 @@ public class PaymentService : ApplicationService<IPaymentState>, IPaymentService
             payment.Delete();
         });
     }
-
     public PagingResult<IList<Model.Payment>> GetAll(Model.Payment query)
     {
         return Dp.Pipeline(ExecuteResult: () =>
@@ -46,13 +42,15 @@ public class PaymentService : ApplicationService<IPaymentState>, IPaymentService
             return result;
         });
     }
-
     public Model.Payment Get(Model.Payment query)
     {
         return Dp.Pipeline(ExecuteResult: () =>
         {
-            var payment = query.ToPayment(Dp.State.Payment.Get(query.ID));
-            return payment;
+            var payment = query.ToDomain();
+            Dp.Attach(payment);
+            payment = payment.GetByID();
+            var result = query.ToPayment(payment);
+            return result;
         });
     }
 }

@@ -1,12 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <Version>1.0.0.0</Version>
   </PropertyGroup>
-	<ItemGroup>
-    <PackageReference Include="devprime.stack.extensions" Version="6.0.66" />
-	</ItemGroup>
+  <PropertyGroup>
+    <ProjectGuid>{9b9aad50-27bf-4548-b991-4984b6d02b58}</ProjectGuid>
+  </PropertyGroup>
   <ItemGroup>
-	  <ProjectReference Include="..\..\Core\Application\Application.csproj" />
+    <PackageReference Include="devprime.stack.extensions" Version="7.0.59" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Application\Application.csproj" />
   </ItemGroup>
 </Project>

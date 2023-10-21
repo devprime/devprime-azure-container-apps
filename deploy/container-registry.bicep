@@ -24,7 +24,7 @@ param location string = resourceGroup().location
 param acrSku string = 'Basic'
 
 // azure container registry
-resource acr 'Microsoft.ContainerRegistry/registries@2019-12-01-preview' = {
+resource acr 'Microsoft.ContainerRegistry/registries@2023-07-01' = {
   name: acrName
   location: location
   sku: {
@@ -36,7 +36,7 @@ resource acr 'Microsoft.ContainerRegistry/registries@2019-12-01-preview' = {
 }
 
 // assign an owner role to the ACR
-resource ownerRoleAssignment 'Microsoft.Authorization/roleAssignments@2018-01-01-preview' = {
+resource ownerRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid('${acr.id}/${ownerPrincipalId}/owner')
   scope: acr
   properties: {
@@ -46,7 +46,7 @@ resource ownerRoleAssignment 'Microsoft.Authorization/roleAssignments@2018-01-01
 }
 
 // create a scope map for your repository
-resource bicepAppServiceContainerScopeMap 'Microsoft.ContainerRegistry/registries/scopeMaps@2020-11-01-preview' = {
+resource bicepAppServiceContainerScopeMap 'Microsoft.ContainerRegistry/registries/scopeMaps@2023-07-01' = {
   parent: acr
   name: 'bicepAppServiceContainer'
   properties: {
@@ -57,7 +57,7 @@ resource bicepAppServiceContainerScopeMap 'Microsoft.ContainerRegistry/registrie
   }
 }
 
-resource bicepAppServiceContainerToken 'Microsoft.ContainerRegistry/registries/tokens@2020-11-01-preview' = {
+resource bicepAppServiceContainerToken 'Microsoft.ContainerRegistry/registries/tokens@2023-07-01' = {
   parent: acr
   name: 'bicepAppServiceContainer'
   properties: {

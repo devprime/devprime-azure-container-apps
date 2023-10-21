@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net7.0</TargetFramework>
 		<Version>1.0.0.0</Version>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -9,7 +9,10 @@
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 		<NoWarn>1701;1702;NU1608</NoWarn>
 	</PropertyGroup>
+    <PropertyGroup>
+      <ProjectGuid>{efd511d9-69d4-4146-ab26-331771d9775e}</ProjectGuid>
+    </PropertyGroup>	
 	<ItemGroup>
-    <PackageReference Include="devprime.stack.observability" Version="6.0.66" />
+		<PackageReference Include="devprime.stack.observability" Version="7.0.59" />
 	</ItemGroup>
 </Project>

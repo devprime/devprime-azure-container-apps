@@ -1,14 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net7.0</TargetFramework>
 		<UserSecretsId>aspnet-TestApp-ce345b64-19cf-4972-b34f-d16f2e7976ed</UserSecretsId>
 		<Version>1.0.0.0</Version>
 	</PropertyGroup>
+	<PropertyGroup>
+      <ProjectGuid>{531f386a-2018-446a-99ce-dc10951f2498}</ProjectGuid>
+    </PropertyGroup>	
 	<ItemGroup>
-    <PackageReference Include="devprime.stack.web" Version="6.0.66" />
+		<PackageReference Include="devprime.stack.web" Version="7.0.59" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\Core\Application\Application.csproj" />
 	</ItemGroup>
-	
 </Project>

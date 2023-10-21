@@ -9,18 +9,20 @@ The image below demonstrates how the final environment will look after we start 
 
 ![Azure Services](/public-images/azure-aca-01.png)
 
-**Items needed in your environment**
-- Install .NET SDK 6 or higher
-- Visual Studio Code
+**Checklist items needed in your environment**
+- Install .NET SDK 7 or higher
+- Visual Studio Code / Visual Studio 2023
+- GIT installed
 - An active account on [Microsoft Azure](https://azure.com)
 - An active account on the platform [DevPrime](https://devprime.io)
-- Activate a [free Developer or paid Enterprise](https://devprime.tech/pricing) license 
+- Activate a [free Developer or paid Enterprise](https://devprime.io/pricing) license 
 - [DevPrime CLI](https://docs.devprime.tech/getting-started/) installed and active (`dp auth`)
 - Azure CLI installed and active (`az login`)
+- Azure CLI Interactive authentication (`az login --scope https://management.core.windows.net//.default`)
 - Active local docker  (`docker login`)
 - Install [PowerShell](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2) on Windows, Linux, and macOS
 - Microsoft Bicep installed ( `az bicep install`)
-- GIT installed
+
 
 In this article we will use two microservices built by DevPrime and implemented as presented in the article [Asynchronous Microservices Communication](https://docs.devprime.tech/how-to/asynchronous-microservices-communication/). You can run the above example in advance or go straight to the code provided by github.
 
@@ -37,7 +39,7 @@ b) Check the home folder with the Order and Payment items. Each such folder has 
 ![Folder cloned locally](/public-images/azure-aca-02.png)
 
 c) Enter the 'main' folder and add your Devprime license. </br>
-`dp stack license`</br>
+`dp stack`</br>
 
 After executing the command it will change the files 
 - 'order\src\App\appsettings.json'

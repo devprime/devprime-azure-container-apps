@@ -8,4 +8,8 @@ global using DevPrime.Stack.Test;
 global using System.Linq;
 global using Application.Interfaces.Adapters.State;
 global using Application.Services.Payment;
+global using Application.EventHandlers.Payment;
+global using Application.Services.Payment.Model;
+global using Domain.Aggregates.Payment;
 global using Domain.Aggregates.Payment.Events;
+global using Application.Interfaces.Services;

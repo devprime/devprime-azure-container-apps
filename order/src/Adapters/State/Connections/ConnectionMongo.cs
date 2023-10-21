@@ -4,7 +4,6 @@ public class ConnectionMongo : MongoBaseState
     public ConnectionMongo(MongoBaseState stateContext, IDpState dp) : base(stateContext, dp)
     {
     }
-
     public IMongoCollection<DevPrime.State.Repositories.Order.Model.Order> Order
     {
         get
