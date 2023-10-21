@@ -1,101 +1,95 @@
-# How to accelerate microservices with Azure Container Apps and DevPrime 
-[DevPrime](https://devprime.io) accelerates application delivery and development of Event-Driven, Cloud-Native Microservices and APIs using a Stack with accelerators, ready-made features. Develop your first microservice in 30 minutes and simplify modernization and digital transformation.
+# Speeding Up Microservices with Azure Container Apps and DevPrime
 
-Azure Container Apps offers a serverless approach to publishing microservices without the need to use Kubernetes. In this tutorial, we demonstrate publishing two microservices developed using the [DevPrime](https://devprime.io) Platform.
+***Introduction***
+[Devprime](https://devprime.io) is a platform that accelerates software developer productivity and saves around 70% of the cost in backend software development by offering a modern software architecture design, components with intelligent behaviors, accelerators, and continuous updates.
 
-The implementation of this environment involving two microservices [DevPrime](https://devprime.io) and Azure Container Apps will additionally use Azure Container Registry (ACR), Azure Log Analytics, Azure Container Apps Environment, Azure CosmosDB, Azure EventHub services.
+Use the Devprime platform to accelerate software modernization and the development of cloud-native Microservices and event-driven APIs using a set of ready-to-use resources. Develop your first microservice in 30 minutes and simplify modernization and digital transformation.
 
-The image below demonstrates how the final environment will look after we start all the procedures for creating the environment and publishing the microservices. 
+Azure Container Apps offers a serverless container approach, allowing you to deploy microservices without the need for Kubernetes.
+
+***Objective***
+The objective of this tutorial is to demonstrate the development and deployment of two microservices using the [DevPrime platform](https://devprime.io) and utilizing the Azure Container Apps environment and related services such as Azure Container Registry (ACR), Azure Log Analytics, Azure Container Apps Environment, Azure CosmosDB with MongoDB, and Azure EventHub with Kafka.
+
+The deployment scripts are structured in PowerShell and Bicep and aim to enable the demonstration of this scenario for software developers. In a production environment, it is necessary to implement a DevOps process and use other resources such as Azure Key Vault, API Management, Web Application Firewall, which are not part of this initial demonstration.
+
+The image below demonstrates how the final environment will look after following all the procedures to create the environment and deploy the microservices.
 
 ![Azure Services](/public-images/azure-aca-01.png)
 
-**Checklist items needed in your environment**
-- Install .NET SDK 7 or higher
-- Visual Studio Code / Visual Studio 2023
-- GIT installed
-- An active account on [Microsoft Azure](https://azure.com)
-- An active account on the platform [DevPrime](https://devprime.io)
-- Activate a [free Developer or paid Enterprise](https://devprime.io/pricing) license 
-- [DevPrime CLI](https://docs.devprime.tech/getting-started/) installed and active (`dp auth`)
-- Azure CLI installed and active (`az login`)
-- Azure CLI Interactive authentication (`az login --scope https://management.core.windows.net//.default`)
-- Active local docker  (`docker login`)
-- Install [PowerShell](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2) on Windows, Linux, and macOS
-- Microsoft Bicep installed ( `az bicep install`)
+***Checklist and Initial Environment Setup***
 
+- Install [.NET SDK 7 (Linux, macOS, and Windows)](https://dotnet.microsoft.com/en-us/download) or higher.
+- Visual Studio Code / Visual Studio 2023.
+- GIT installed.
+- An active account on [Microsoft Azure](https://azure.com).
+- An active account on the [DevPrime platform](https://devprime.io).
+- Access Devprime's documentation to understand how to create [the first microservice](https://docs.devprime.io/quick-start/creating-the-first-microservice/).
+- Acquire a [Devprime usage license](https://devprime.io/pricing).
+- Install and authenticate [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/) (`az login`).
+- Interactive Azure CLI authentication (`az login --scope https://management.core.windows.net//.default`).
+- Install and authenticate [Devprime CLI](https://docs.devprime.io/quick-start/install-devprime-cli/) (`dp auth`).
+- Install and authenticate Docker (`docker login`).
+- Install [PowerShell](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2) on Windows, Linux, and macOS.
+- Install Microsoft Bicep (`az bicep install`).
 
-In this article we will use two microservices built by DevPrime and implemented as presented in the article [Asynchronous Microservices Communication](https://docs.devprime.tech/how-to/asynchronous-microservices-communication/). You can run the above example in advance or go straight to the code provided by github.
+In this article, we will use two microservices built using the DevPrime platform and implemented as described in the article [Asynchronous Microservices Communication](https://docs.devprime.io/examples/stream/rabbitmq/asynchronous-microservices-communication/). You can manually implement the example or directly follow the provided code on GitHub.
 
-This project uses powershell and bicep based scripts to create the Azure Container Apps environment in Azure. You can adapt the scripts as per your need.
+***Getting Started***
 
-**First steps**
+a) Clone the project from GitHub:
+   `git clone https://github.com/devprime/azure-container-apps-bicep`
 
-a) Run a clone of the project on github
+b) Check the main folder with the Order and Payment items. Each folder contains a development microservice using the DevPrime platform.
 
-`git clone https://github.com/devprime/azure-container-apps-bicep`
+![Locally Cloned Folder](/public-images/azure-aca-02.png)
 
-b) Check the home folder with the Order and Payment items. Each such folder has a development microservice with the DevPrime platform.
+c) Access the 'main' folder and add your license using the Devprime CLI.
+   `dp stack`
 
-![Folder cloned locally](/public-images/azure-aca-02.png)
-
-c) Enter the 'main' folder and add your Devprime license. </br>
-`dp stack`</br>
-
-After executing the command it will change the files 
+After running the command, the following files will be modified:
 - 'order\src\App\appsettings.json'
-- 'payment\src\App\appsettings.json' 
+- 'payment\src\App\appsettings.json'
 
+**Local Database and Stream Credentials**
 
+To run the project locally, you need to [set up a local environment with Docker](https://docs.devprime.io/quick-start/docker/) and activate the MongoDB and Kafka containers, along with the "orderevents" and "paymentevents" topics in Kafka. The next step is to edit the configuration files of each microservice with the local MongoDB and Kafka credentials by locating the 'State' and 'Stream' keys.
 
-
-**Local database and stream credentials**
-
-To run the microservice locally, adding the credentials of a mongodb database and a kafka cluster in the order project and in the payment project, editing the 'appsettings.json' file as shown in the example below. At deployment time we will use the credentials of the Azure environment.
-
-Optionally locate the 'State' and 'Stream' keys and change the values with mongodb and/or kafka service credentials in the 'order' and 'payment' folders
-
+Open the configuration file in Visual Studio Code:
 `code order\src\App\appsettings.json`
-
 `code payment\src\App\appsettings.json`
 
-**Running the microservice locally**
+**Running the Microservice Locally**
 
-Enter the order or payment folder and run
+Open two terminal tabs and run each of the microservices by navigating to the Order or Payment folder with the following command:
+`.\run.ps1` or `./run.sh` (Linux, macOS)
 
-`.\run.ps1 or ./run.sh (Linux, macOS)`
+***Exporting Microservices Configuration***
 
-**Exporting microservices settings**
-Enter the 'order' folder and run the DevPrime CLI export command to create a deployment file. Repeat the same procedure on the 'payment' folder. We will copy some parameters.
-
+Our deployment script requires some parameters. To do this, go to the 'order' folder and execute the Devprime CLI export command to create a deployment file. Repeat the same process in the 'payment' folder. We will copy some parameters.
 `dp export kubernetes`
 
-Now return to the root folder and open the files to observe the parameters that will be sent
-during deployment of Azure Container Apps. View the 'env:' key in the files below.
-
+Now return to the root folder and open the files to observe the parameters that will be sent during the deployment of Azure Container Apps. Look for the 'env:' key in the following files:
 `code order\.devprime\kubernetes\deployment.yml`
-
 `code payment\.devprime\kubernetes\deployment.yml`
 
-**[Environment variables]**
+***Introduction to Environment Variables***
+Environment variables contain configuration parameters that will be passed to the Azure Container Apps instance.
 
-When running the Order and Payment microservices on the Azure Container Apps instance, it is necessary to configure the environment variables. This procedure is very similar to the one used in Docker and Kubernetes and you can see a preview in the image below.
+![Environment Variables](/public-images/azure-aca-03.png)
 
-![Environment variables](/public-images/azure-aca-03.png)
+**Configuring Environment Variables**
 
-**Setting the environment variables**
+In conjunction with the example project, we are providing PowerShell and Bicep-based scripts to facilitate the deployment of the entire environment in Azure.
 
-a) Edit the files 1-docker-build-push.ps1, 2-deploy-azure.ps1 and 3-cleanup.ps1 by setting a new value in the $app variable. Do not use special characters.
+a) Edit the files 1-docker-build-push.ps1, 2-deploy-azure.ps1, and 3-cleanup.ps1 by defining a new value in the $app variable. Do not use special characters.
+   `code .\1-docker-build-push.ps1`
+   `code .\2-deploy-azure.ps1`
+   `code .\3-cleanup.ps1`
 
-b) Edit the deploy\main.bicep file to change the environment variable settings.
+b) Edit the `order/.devprime/kubernetes/deployment.yml` file, locate the "devprime_app" key, and then the "license" key, and copy the content to use in the next step.
 
-`code deploy\main.bicep`
-
-c) Copy the contents of the key 'devprime_app' in the file 'order\.devprime\kubernetes\deployment.yml' in Order and change in the file deploy\main.bicep in the microservice key Order. Note that in main.bicep we will create two instances of Azure Container Apps and you must repeat the steps in Payment.
-```
-// Container Apps: Order
-// Container Apps: Payment
-```
-In this example we will not change other settings. If you need to define more parameters for your application, repeat the procedure for the other keys.
+c) Edit the `deploy\main.bicep` file and locate the line `param DevPrime_License string` and include the Devprime license code.
+   `code deploy\main.bicep`
 
 **Running environment creation in Azure Container Apps**
 We'll run the scripts so you can follow along step by step. At the end, if everything goes well, you will already have the Azure Container Apps url in the logs and you will consult the services in the Azure portal.
@@ -136,6 +130,7 @@ To delete all services created in Azure run the script below. Before confirming 
 - Automate this process using Azure DevOps, Github...
 - Add a security setting in the API's exposure
 - Add an Azure API Management service
+- Add Azure Key Vault
 
 **Additional Research**
 
@@ -153,4 +148,4 @@ To delete all services created in Azure run the script below. Before confirming 
 
 **Trademarks**
 - This project may contain trademarks or logos for projects, products, or services
-- This sample code is proprietary to devprime 
+- This sample code is proprietary to Devprime 
