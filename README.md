@@ -1,6 +1,6 @@
 # Speeding Up Microservices with Azure Container Apps and DevPrime
 
-***Introduction***   
+***Introduction***
 [Devprime](https://devprime.io) is a platform that accelerates software developer productivity and saves around 70% of the cost in backend software development by offering a modern software architecture design, components with intelligent behaviors, accelerators, and continuous updates.
 
 Use the Devprime platform to accelerate software modernization and the development of cloud-native Microservices and event-driven APIs using a set of ready-to-use resources. Develop your first microservice in 30 minutes and simplify modernization and digital transformation.
@@ -90,20 +90,7 @@ b) Edit the `order/.devprime/kubernetes/deployment.yml` file, locate the "devpri
 
 c) Edit the `deploy\main.bicep` file and locate the line `param DevPrime_License string` and include the Devprime license code.
    `code deploy\main.bicep`
-```
 
-Agora, o texto deve ser exibido corretamente no GitHub com as quebras de linha apropriadas.
-
-**Running environment creation in Azure Container Apps**
-We'll run the scripts so you can follow along step by step. At the end, if everything goes well, you will already have the Azure Container Apps url in the logs and you will consult the services in the Azure portal.
-
-a) We will start by creating the Azure Resource Group, Azure Container Registry (ACR), Docker Build and Push services from the microservices images to the private repository in ACR.
-
-`.\1-docker-build-push.ps1`
-
-b) Now we will use the bicep to create Azure Container Apps, Azure Container App Environment, Azure CosmosDB, Log Analytics, Event Hubs.
-
-`.\2-deploy-azure.ps1`
 
 **Accessing microservices in Azure Container Apps**
 
