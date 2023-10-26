@@ -8,6 +8,6 @@
       <ProjectGuid>{76884017-f99b-4bed-8e51-8b6156ebaf86}</ProjectGuid>
     </PropertyGroup>	
 	<ItemGroup>
-		<PackageReference Include="devprime.stack.foundation" Version="7.0.59" />
+    <PackageReference Include="devprime.stack.foundation" Version="7.0.59" />
 	</ItemGroup>
 </Project>

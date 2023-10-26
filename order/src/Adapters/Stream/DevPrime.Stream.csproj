@@ -7,7 +7,7 @@
       <ProjectGuid>{33cfa8a2-045e-44c8-b889-9ff834a7d5d3}</ProjectGuid>
     </PropertyGroup>		
 	<ItemGroup>
-		<PackageReference Include="devprime.stack.stream" Version="7.0.59" />
+    <PackageReference Include="devprime.stack.stream" Version="7.0.59" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\Core\Application\Application.csproj" />

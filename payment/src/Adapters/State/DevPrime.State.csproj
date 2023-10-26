@@ -12,6 +12,6 @@
 		<ProjectReference Include="..\..\Core\Application\Application.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="devprime.stack.state" Version="7.0.59" />
+    <PackageReference Include="devprime.stack.state" Version="7.0.59" />
 	</ItemGroup>
 </Project>

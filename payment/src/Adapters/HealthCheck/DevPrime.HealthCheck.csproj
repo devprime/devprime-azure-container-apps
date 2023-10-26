@@ -7,6 +7,6 @@
       <ProjectGuid>{b51d8bc3-492a-4dcd-9845-530212fd5344}</ProjectGuid>
     </PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="devprime.stack.healthcheck" Version="7.0.59" />
+    <PackageReference Include="devprime.stack.healthcheck" Version="7.0.59" />
 	</ItemGroup>
 </Project>

@@ -8,7 +8,7 @@
       <ProjectGuid>{531f386a-2018-446a-99ce-dc10951f2498}</ProjectGuid>
     </PropertyGroup>	
 	<ItemGroup>
-		<PackageReference Include="devprime.stack.web" Version="7.0.59" />
+    <PackageReference Include="devprime.stack.web" Version="7.0.59" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\Core\Application\Application.csproj" />
