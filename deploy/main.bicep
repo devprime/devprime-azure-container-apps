@@ -5,7 +5,7 @@ param DevPrime_License string ='Put your license'
 
 //Param
 param location string = resourceGroup().location
-param appName string = 'appdevprime'
+param appName string
 param appNameDB string = '${appName}cosmosdb'
 param appEventHub string = '${appName}eventhub'
 

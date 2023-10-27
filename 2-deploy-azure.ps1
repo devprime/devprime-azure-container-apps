@@ -62,7 +62,7 @@ Write-Output  "Password:" $registryKey
 
 Write-Output "********************************************"
 Write-Output  "Starting deploy..."
-az deployment group create -n $app -g $group --template-file .\deploy\main.bicep -p containerImageOrder=$registry.azurecr.io/order:latest containerImagePayment=$registry.azurecr.io/payment:latest containerPort=80 registry=$registry.azurecr.io registryUsername=$registryID registryPassword=$registryKey
+az deployment group create -n $app -g $group --template-file .\deploy\main.bicep -p containerImageOrder=$registry.azurecr.io/order:latest containerImagePayment=$registry.azurecr.io/payment:latest containerPort=80 registry=$registry.azurecr.io registryUsername=$registryID registryPassword=$registryKey appName=$app
 
 Write-Output "********************************************"
 Write-Output  "                    Done                  *"
