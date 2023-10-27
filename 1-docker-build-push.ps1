@@ -1,6 +1,8 @@
 $dt=(Get-Date -UFormat %m)+(Get-Date -UFormat %d)+(Get-Date -UFormat %Y)
+$dtfull= Get-Date -Format "yyyyMMddHHmmss"
+
 $app = "appdevprime"
-$region = "eastus"
+$region = "eastus" #eastus #centralus #eastus2 #brazilsouth
 $group =  $app + "group"
 $environment = $app + "environment"
 $logs = $app + "logs"
@@ -12,12 +14,16 @@ docker login
 
 echo "****************************"
 echo "Try creating Resource Group "
+echo "Group: $group"
+echo "Region: $region"
 echo "****************************"
 az group create -n $group -l $region
 
 
 echo "****************************"
 echo "Try creating Container Registry"
+echo "Name:$registry"
+echo "Group:$group"
 echo "****************************"
 
 az acr create -n $registry -g $group --sku Basic --admin-enabled true
@@ -25,11 +31,12 @@ az acr create -n $registry -g $group --sku Basic --admin-enabled true
 # az acr show -g appdevprimegroup -n $registry
 
 echo "***********************************"
-echo "Getting Azure ACR Credentials: $registry"
+echo "Getting Azure ACR Credentials"
+echo "ACR: $registry"
 echo "***********************************"
 
-$maxAttempts = 10
-$retryInterval = 30
+$maxAttempts = 30
+$retryInterval = 60
 $acrpass = $null
 
 
@@ -57,9 +64,37 @@ if ($acrpass -eq $null) {
 
 
 echo "***********************************"
-echo "Creating Docker Credentials: $registry"
+echo "Creating Docker Credentials:"
+echo "Registry:$registry"
+echo "Credential:$acrpass"
 echo "***********************************"
-az acr login -n $registry -u $registry -p $acrpass
+#az acr login -n $registry -u $registry -p $acrpass
+
+
+$maxAttempts = 20
+$retryIntervalSeconds = 30
+
+for ($i = 1; $i -le $maxAttempts; $i++) {
+    $loginResult = az acr login -n $registry -u $registry -p $acrpass
+    if ($loginResult -match "Error response from daemon: login attempt to .* failed with status: 404 Not Found") {
+        Write-Host "Received a 404 error. Continuing to retry."
+    } elseif ($loginResult -match "Login failed.") {
+        Write-Host "Login failed."
+        Write-Host "Connection attempt $i failed. Retrying in $retryIntervalSeconds seconds..."
+        Start-Sleep -Seconds $retryIntervalSeconds
+    } else {
+        Write-Host "Connected to the registry successfully."
+        break  # Exit the loop if the connection is successful
+    }
+}
+
+if ($i -eq ($maxAttempts + 1)) {
+    Write-Host "Failed to connect to the registry after $maxAttempts attempts."
+    # Add additional code to handle the failure if necessary.
+}
+
+
+
 
 
 echo "***********************************"
