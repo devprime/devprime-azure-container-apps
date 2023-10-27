@@ -1,12 +1,20 @@
 $dt=(Get-Date -UFormat %m)+(Get-Date -UFormat %d)+(Get-Date -UFormat %Y)
 $dtfull= Get-Date -Format "yyyyMMddHHmmss"
 
-$app = "appdevprime"
+$app = "appdevprime$dtfull"
 $region = "eastus" #eastus #centralus #eastus2 #brazilsouth
-$group =  $app + "group"
+$group =  $app
 $environment = $app + "environment"
 $logs = $app + "logs"
 $registry =  $app.ToLower() + "registry"
+
+# EnvironmentVariable
+[Environment]::SetEnvironmentVariable("app", $app, [System.EnvironmentVariableTarget]::User)
+[Environment]::SetEnvironmentVariable("region", $region, [System.EnvironmentVariableTarget]::User)
+[Environment]::SetEnvironmentVariable("group", $group, [System.EnvironmentVariableTarget]::User)
+[Environment]::SetEnvironmentVariable("environment", $environment, [System.EnvironmentVariableTarget]::User)
+[Environment]::SetEnvironmentVariable("logs", $logs , [System.EnvironmentVariableTarget]::User)
+[Environment]::SetEnvironmentVariable("registry", $registry, [System.EnvironmentVariableTarget]::User)
 
 Write-Output "****************************"
 echo "Try docker login"
